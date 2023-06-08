@@ -16,8 +16,6 @@ const corsOptions ={
 
 app.use(cors(corsOptions))
 
-// const Users  = [{username:'abhishek',password:'abhi'}]
-
 
 // to parse formdata
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,8 +56,4 @@ app.post('/login',async(req,res)=>{
     }
 })
 
-
-app.get('/feed',(req,res)=>{
-    res.send('feed')
-})
 
