@@ -6,6 +6,7 @@ const port = 3000
 const connectionURI = 'mongodb://127.0.0.1:27017/job-board' 
 const cors=require("cors");
 const Jobs = require('./models/Jobs')
+const Users = require('./models/Users')
 
 const corsOptions ={
    origin:'*', 
@@ -15,7 +16,8 @@ const corsOptions ={
 
 app.use(cors(corsOptions))
 
-const Users  = [{username:'abhishek',password:'abhi'}]
+// const Users  = [{username:'abhishek',password:'abhi'}]
+
 
 // to parse formdata
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +32,7 @@ mongoose.connect(connectionURI).then(()=>{
 
 })
 
+
 // homepage route 
 app.get('/',async(req,res)=>{
     const user = await Jobs.find()
@@ -39,9 +42,9 @@ app.get('/',async(req,res)=>{
 
 
 // login page 
-app.post('/login',(req,res)=>{
+app.post('/login',async(req,res)=>{
     const {username, password} = req.body
-    const user = Users.find((item)=>item.username === username)
+    const user = await Users.findOne({username:username})
     if(!user){
         res.status(404).send('user does not exist')
     }
