@@ -1,9 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+dotenv.config()
 const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
-const connectionURI = 'mongodb://127.0.0.1:27017/job-board' 
 const cors=require("cors");
 const Jobs = require('./models/Jobs')
 const Users = require('./models/Users')
@@ -21,7 +22,7 @@ app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
-mongoose.connect(connectionURI).then(()=>{
+mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log('connected to database')
     
     app.listen(port,()=>{
@@ -33,8 +34,8 @@ mongoose.connect(connectionURI).then(()=>{
 
 // homepage route 
 app.get('/',async(req,res)=>{
-    const user = await Jobs.find()
-    res.json(user)
+    const jobsFromDB = await Jobs.find()
+    res.json(jobsFromDB)
 })
 
 
@@ -46,11 +47,11 @@ app.post('/login',async(req,res)=>{
     if(!user){
         res.status(404).send('user does not exist')
     }
-    if(user.password!=password){
+    if(user.password!==password){
         console.log(user)
         res.status(403).send('wrong password')
     }else{
-        res.send(`user logged in successfully`)  
+        res.json(`user logged in successfully`)  
 
         
     }

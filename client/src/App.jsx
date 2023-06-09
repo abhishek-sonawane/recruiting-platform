@@ -1,5 +1,8 @@
 import { useState,useEffect } from 'react'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import './App.css'
+import Feed from './Components/Feed'
+import Login from './Components/Login'
 
 function App() {
 
@@ -17,12 +20,12 @@ function App() {
 
   
   return (
-    <div>
-      <p className=' font-mono font-bold text-4xl text-red-400' >hello client</p>
-      {data.length>0&&data.map(item=>{
-        return <p>{item.title}</p>
-      })}
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route  exact path='/' element={  <Feed data={data} />}  />
+          <Route exact path='/login' element={<Login />} />
+        </Routes>
+    </BrowserRouter>
   )
 }
 

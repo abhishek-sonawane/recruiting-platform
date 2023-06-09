@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+    .input-field{
+        border: 1px solid rgb(189, 189, 189);
+        border-radius: 8px;
+        padding: 10px 20px;
+    }   
