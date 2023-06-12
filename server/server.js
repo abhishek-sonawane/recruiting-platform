@@ -80,7 +80,7 @@ app.post('/login',async(req,res)=>{
     }
 })
 
-
+// testing protected route with middleware
 app.get('/user/me',auth,(req,res)=>{
 
     res.send('protected route')
