@@ -3,6 +3,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import './App.css'
 import Feed from './Components/Feed'
 import Login from './Components/Login'
+import NavBar from './Components/NavBar'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
   
   return (
     <BrowserRouter>
+    <NavBar />
         <Routes>
           <Route  exact path='/' element={  <Feed data={data} />}  />
           <Route exact path='/login' element={<Login />} />

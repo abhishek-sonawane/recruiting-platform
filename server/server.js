@@ -8,6 +8,9 @@ const port = 3000
 const cors=require("cors");
 const Jobs = require('./models/Jobs')
 const Users = require('./models/Users')
+const generateToken = require('./utils/generateToken')
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 const corsOptions ={
    origin:'*', 
@@ -16,7 +19,25 @@ const corsOptions ={
 }
 
 app.use(cors(corsOptions))
+app.use(cookieParser())
 
+// middleware 
+
+const auth = async(req,res,next)=>{
+    try {
+        const decoded = jwt.verify(req.cookies.jwt,process.env.JWT_SECRET)
+        console.log(decoded)
+        req.user = await Users.findById(decoded.userID)
+        next()
+
+
+    } catch (error) {
+        res.status(401).json('not authorized ')
+        // throw new Error('not authorized')
+    }
+    
+
+}
 
 // to parse formdata
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,10 +72,19 @@ app.post('/login',async(req,res)=>{
         console.log(user)
         res.status(403).send('wrong password')
     }else{
-        res.json(`user logged in successfully`)  
+        console.log(user._id)
+        generateToken(res,user.id)
+        res.status(200).json(`user logged in successfully`)  
 
         
     }
+})
+
+
+app.get('/user/me',auth,(req,res)=>{
+
+    res.send('protected route')
+
 })
 
 
