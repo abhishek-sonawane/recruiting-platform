@@ -88,3 +88,17 @@ app.get('/user/me',auth,(req,res)=>{
 })
 
 
+app.get('/job/:id',async(req,res)=>{
+      try {
+        const job = await Jobs.findById(req.params.id)
+        if(job){
+            res.status(200).json(job)
+        }else{
+            res.send('hi')
+        }
+      } catch (error) {
+        console.log(error)
+        res.send('wrong id')
+      }
+})
+

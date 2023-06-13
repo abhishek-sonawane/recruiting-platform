@@ -4,6 +4,8 @@ import './App.css'
 import Feed from './Components/Feed'
 import Login from './Components/Login'
 import NavBar from './Components/NavBar'
+import SingleJob from './Components/SingleJob'
+import ErrorPage from './Components/ErrorPage'
 
 function App() {
 
@@ -26,6 +28,9 @@ function App() {
         <Routes>
           <Route  exact path='/' element={  <Feed data={data} />}  />
           <Route exact path='/login' element={<Login />} />
+          <Route path='/job/:jobID' element={<SingleJob/>} />
+          <Route path='/*' element={<ErrorPage />}  />
+          <Route path='/404' element={<ErrorPage />}  />
         </Routes>
     </BrowserRouter>
   )
