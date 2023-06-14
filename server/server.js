@@ -75,7 +75,6 @@ app.post('/login',async(req,res)=>{
         console.log(user._id)
         generateToken(res,user.id)
         res.status(200).json(`user logged in successfully`)  
-
         
     }
 })
@@ -98,7 +97,7 @@ app.get('/job/:id',async(req,res)=>{
         }
       } catch (error) {
         console.log(error)
-        res.send('wrong id')
+        res.status(403).json('wrong id')
       }
 })
 

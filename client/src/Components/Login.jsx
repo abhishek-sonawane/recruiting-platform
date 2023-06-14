@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import GlobalContext from '../context/GlobalContext'
+// import jwt, { decode } from 'jsonwebtoken'
 
 function Login() {
+    // loggedIn
+    const {setLoggedin ,loggedIn} = useContext(GlobalContext)
 
         const [username,setusername] = useState('')
         const [password, setPassword] = useState('')
@@ -13,6 +18,21 @@ function Login() {
         // console.log('h')
         postUser()
     }
+
+    
+
+    // const verifyToken =(token)=>{
+    //     const decoded = jwt.verify(token,'@bhi!shek')
+    //     return decoded.userID
+
+    // }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        setLoggedin(true)
+      }
 
     const postUser = async()=>{
         const options  = {
@@ -27,6 +47,10 @@ function Login() {
         console.log(data)
         if(result.status===200){
             navigate('/')
+
+            getCookie('jwt')
+
+            
         }
     }
 
