@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 
 const corsOptions ={
-   origin:'*', 
+   origin:'http://localhost:8000', 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
@@ -64,18 +64,32 @@ app.get('/',async(req,res)=>{
 // login page 
 app.post('/login',async(req,res)=>{
     const {username, password} = req.body
+    // if(!username || !password){
+    //    return res.status(403).json('please enter an email and password');
+    // }
+
     const user = await Users.findOne({username:username})
-    if(!user){
-        res.status(404).send('user does not exist')
-    }
-    if(user.password!==password){
-        console.log(user)
-        res.status(403).send('wrong password')
-    }else{
-        console.log(user._id)
-        generateToken(res,user.id)
-        res.status(200).json(`user logged in successfully`)  
+    if(user){
         
+        if(user.password!==password){
+            console.log(user)
+          return  res.status(403).send('wrong password')
+        }
+
+        console.log(user._id)
+        const token =  generateToken(user.id)
+ 
+        res.cookie('jwt',token,{
+         httpOnly:true,
+         secure :process.env.NODE_ENV!=='development',
+         sameSite:'strict',
+         maxAge: 30*24*60*60*1000,
+     })
+       return  res.status(200).json(`user logged in successfully`)  
+        
+    }
+    else{
+      return  res.status(404).json('user does not exist')
     }
 })
 
