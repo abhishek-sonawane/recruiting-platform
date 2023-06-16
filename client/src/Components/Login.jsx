@@ -8,14 +8,13 @@ function Login() {
     useEffect(()=>{
         console.log(getCookie("jwt"))
     },[])
-    const {setLoggedin ,loggedIn} = useContext(GlobalContext)
-
+        const {setLoggedin ,loggedIn} = useContext(GlobalContext)   
         const [username,setusername] = useState('')
         const [password, setPassword] = useState('')
-
         const navigate = useNavigate()
 
     const loginFormSubmit =(e)=>{
+        
         e.preventDefault()
         postUser()
     }
@@ -35,7 +34,7 @@ function Login() {
         if(result.status===200){
             navigate('/')
         
-            if(getCookie('jwt')){
+            if(getCookie('jwt')!=''){
             setLoggedin(true)
             }
 

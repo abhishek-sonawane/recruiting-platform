@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState,useEffect,useContext } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import './App.css'
 import Feed from './Components/Feed'
@@ -8,13 +8,17 @@ import SingleJob from './Components/SingleJob'
 import ErrorPage from './Components/ErrorPage'
 import PrivateRoute from './Components/PrivateRoute'
 import UserDetails from './Components/UserDetails'
-import {ContextProvider} from './context/GlobalContext.jsx'
+// import {ContextProvider} from './context/GlobalContext.jsx'
+import GlobalContext from './context/GlobalContext.jsx'
 import FetchCall from './utils/FetchCalls'
+import getCookie from './utils/FindCookie'
 
 
 function App() {
 
   const [data,setData] = useState({})
+  const {loggedIn,setLoggedin}  = useContext(GlobalContext)
+ 
 
   useEffect(()=>{
    const getData = async()=>{
@@ -23,11 +27,13 @@ function App() {
     setData(resultData)
    }
    getData()
+   if(getCookie('jwt')!=''){
+    setLoggedin(true)
+}
   },[])
 
   
   return (
-   <ContextProvider>
      <BrowserRouter>
     <NavBar  />
         <Routes>
@@ -41,7 +47,6 @@ function App() {
           <Route path='/404' element={<ErrorPage />}  />
         </Routes>
     </BrowserRouter>
-   </ContextProvider>
   )
 }
 
