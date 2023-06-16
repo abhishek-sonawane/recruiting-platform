@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 
 const corsOptions ={
-   origin:'http://localhost:8000', 
+   origin:process.env.CLIENT_DOMAIN_URL, 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
@@ -55,8 +55,13 @@ mongoose.connect(process.env.MONGO_URL).then(()=>{
 
 // homepage route 
 app.get('/',async(req,res)=>{
-    const jobsFromDB = await Jobs.find()
+    try {
+        const jobsFromDB = await Jobs.find()
+        console.log(jobsFromDB)
     res.json(jobsFromDB)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 

@@ -15,7 +15,7 @@ function SingleJob() {
     useEffect(()=>{
         const fetchdata =  async()=>{
           try {
-            const results = await  fetch(`http://localhost:3000/job/${jobID}`)
+            const results = await  fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/${jobID}`)
             const data = await results.json()
             console.log(data)
             setJob(data)

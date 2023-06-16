@@ -22,7 +22,7 @@ function App() {
 
   useEffect(()=>{
    const getData = async()=>{
-    const resultData = await FetchCall('http://localhost:3000/',{mode: 'cors',
+    const resultData = await FetchCall(import.meta.env.VITE_BACKEND_ENDPOINT,{mode: 'cors',
     credentials: 'include'})
     setData(resultData)
    }

@@ -26,7 +26,7 @@ function Login() {
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify({username:username,password:password})
         }
-        const result =  await fetch('http://localhost:3000/login',options)
+        const result =  await fetch(import.meta.env.VITE_BACKEND_ENDPOINT,options)
         console.log(result)
         console.log(result.status)
         const data = await result.json()
