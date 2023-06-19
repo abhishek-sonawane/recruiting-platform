@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import getCookie from '../utils/FindCookie'
+import FetchCall from '../utils/FetchCalls'
 
 function Login() {
     useEffect(()=>{
@@ -14,7 +15,6 @@ function Login() {
         const navigate = useNavigate()
 
     const loginFormSubmit =(e)=>{
-        
         e.preventDefault()
         postUser()
     }
@@ -26,7 +26,7 @@ function Login() {
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify({username:username,password:password})
         }
-        const result =  await fetch(import.meta.env.VITE_BACKEND_ENDPOINT,options)
+        const result =  await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/login`,options)
         console.log(result)
         console.log(result.status)
         const data = await result.json()
