@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 
 const corsOptions ={
-   origin:process.env.CLIENT_DOMAIN_URL, 
+   origin:[process.env.CLIENT_DOMAIN_URL,'http://localhost:8000'], 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
