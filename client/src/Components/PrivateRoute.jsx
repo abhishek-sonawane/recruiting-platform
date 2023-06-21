@@ -10,20 +10,15 @@ function PrivateRoute() {
     const {loggedIn,setLoggedin} = useContext(GlobalContext)
     
     useEffect(()=>{
-        if(getCookie('jwt')!=''){
+        if(getCookie('jwt')!==''){
             setLoggedin(true)
         }
        
     },[])
-    return (
 
-        <div>
-            {loggedIn ?
-                <Outlet />
-                :
-                <Navigate to='/login' state={{location}} replace />}
-        </div>
-    )
+
+          return  loggedIn ? <Outlet/> : (<Navigate to='/login' state={{location}} replace />)
+
 }
 
 export default PrivateRoute

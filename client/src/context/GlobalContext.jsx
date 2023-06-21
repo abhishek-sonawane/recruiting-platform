@@ -7,7 +7,7 @@ export const ContextProvider = ({children})=>{
     const [loggedIn,setLoggedin] = useState(false)
 
     return(
-        <GlobalContext.Provider value={{loggedIn,setLoggedin}}>
+    <GlobalContext.Provider value={{loggedIn,setLoggedin}}>
         {children}
     </GlobalContext.Provider>
     )

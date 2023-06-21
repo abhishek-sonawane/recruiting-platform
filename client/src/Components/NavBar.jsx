@@ -19,6 +19,11 @@ function NavBar() {
             about
             </NavLink>
         </li>
+        <li className='bg-slate-200 p-2 rounded-lg'>
+            <NavLink to='/job/post'>
+            Post Job
+            </NavLink>
+        </li>
         {loggedIn?
     <li>
       <NavLink to='/user/me'>

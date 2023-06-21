@@ -19,6 +19,9 @@ function SingleJob() {
             const data = await results.json()
             console.log(data)
             setJob(data)
+            if(results.status==403){
+              throw new Error
+            }
           } catch (error) {
            navigate('/404')
           }

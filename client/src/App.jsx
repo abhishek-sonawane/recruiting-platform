@@ -12,6 +12,7 @@ import UserDetails from './Components/UserDetails'
 import GlobalContext from './context/GlobalContext.jsx'
 import FetchCall from './utils/FetchCalls'
 import getCookie from './utils/FindCookie'
+import CreateJob from './Components/CreateJob'
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
    const getData = async()=>{
     const resultData = await FetchCall(import.meta.env.VITE_BACKEND_ENDPOINT,{mode: 'cors',
     credentials: 'include'})
-    setData(resultData)
+    setData(resultData.fetchedData)
    }
    getData()
    if(getCookie('jwt')!=''){
@@ -43,6 +44,7 @@ function App() {
           </Route>
           <Route exact path='/login' element={<Login />} />
           <Route path='/job/:jobID' element={<SingleJob/>} />
+          <Route path='/job/post' element={<CreateJob/>}/>
           <Route path='/*' element={<ErrorPage />}  />
           <Route path='/404' element={<ErrorPage />}  />
         </Routes>
