@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import {BiArrowBack} from 'react-icons/bi'
+import { getSingleJob } from '../services/APIcalls/jobs'
 
 function SingleJob() {
     const navigate = useNavigate()
@@ -15,14 +16,14 @@ function SingleJob() {
     useEffect(()=>{
         const fetchdata =  async()=>{
           try {
-            const results = await  fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/${jobID}`)
-            const data = await results.json()
+            const data = await getSingleJob(jobID)
             console.log(data)
             setJob(data)
-            if(results.status==403){
-              throw new Error
-            }
+            // if(results.status===403){
+            //   throw new Error
+            // }
           } catch (error) {
+            console.log(`error: ${error.message}`)
            navigate('/404')
           }
            }

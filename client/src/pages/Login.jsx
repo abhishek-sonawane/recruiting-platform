@@ -50,7 +50,7 @@ function Login() {
             <input value={username} onChange={(e)=>setusername(e.target.value)} placeholder='username' className=' input-field w-full' type="text" name="username" id="username" />
 
             <input value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password' className=' input-field w-full' type="password" name="password" id="password" />
-
+            <input onFocus={()=>console.log('focused')} onBlur={()=>console.log('blurred')}  />
             <button className='p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full' >login</button>
         </form>
     </div>
