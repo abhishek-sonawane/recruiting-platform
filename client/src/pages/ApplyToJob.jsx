@@ -14,12 +14,12 @@ function ApplyToJob() {
     }
 
   return (
-    <div>
-     <form onSubmit={(e)=>handleSubmit(e)} encType='multipart/form-data'>
-     <input type="text" value={name} onChange={(e)=>setName(e.target.value)} />
-     <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+    <div className='grid place-content-center' >
+     <form className='flex flex-col gap-6 bg-white rounded-xl w-full p-20 max-w-xl'  onSubmit={(e)=>handleSubmit(e)} encType='multipart/form-data'>
+     <input className=' input-field w-full' placeholder='your name' type="text" value={name} onChange={(e)=>setName(e.target.value)} />
+     <input className=' input-field w-full' placeholder='email' type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
       <input type="file" onChange={(e)=>setFile(e.target.files[0])} />
-        <button>submit</button>
+        <button className='p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full' >submit</button>
      </form>
     </div>
   )
