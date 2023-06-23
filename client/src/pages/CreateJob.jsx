@@ -29,7 +29,6 @@ function CreateJob() {
             <input type="text" className=' input-field w-full' placeholder='title' name='title' id='title' onChange={(e)=>setTitle(e.target.value)} />
             <textarea type="text" className=' input-field w-full' placeholder='description' name='description' id='description' onChange={(e)=>setDescription(e.target.value)} />
             <button className='p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full'>post</button>
-            
        </form>
     </div>
   )

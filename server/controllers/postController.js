@@ -1,6 +1,6 @@
 // const Jobs = require('../models/Jobs')
+const Applications = require("../models/Applications")
 const Jobs = require("../models/Jobs")
-
 
 
 const getSingleJob = async (req, res) => {
@@ -33,6 +33,26 @@ const postJob = async(req,res)=>{
     }
 }
 
-module.exports = {getSingleJob,postJob}
+const applyToJob = async(req,res)=>{
+    try {
+        const {name,email} = req.body
+        const application = new Applications({
+            name:name,
+            email:email,
+            cvPDF:{
+                path: req.file.path
+            }
+        })
+        await application.save()
+        console.log(req.body)
+        console.log(req.file)
+       return res.status(200).send('application posted successfully')
+    } catch (error) {
+        console.log(error.message)
+      return  res.status(403).json('something went wrong')
+    }
+}
+
+module.exports = {getSingleJob,postJob,applyToJob}
 
 

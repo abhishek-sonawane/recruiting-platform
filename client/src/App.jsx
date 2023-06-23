@@ -13,6 +13,7 @@ import GlobalContext from './context/GlobalContext.jsx'
 import getCookie from './utils/FindCookie'
 import CreateJob from './pages/CreateJob'
 import { getJobs } from './services/APIcalls/jobs'
+import ApplyToJob from './pages/ApplyToJob'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           </Route>
           <Route exact path='/login' element={<Login />} />
           <Route path='/job/:jobID' element={<SingleJob/>} />
+          <Route path='/job/apply/:jobID' element={<ApplyToJob/>} />
           <Route path='/*' element={<ErrorPage />}  />
           <Route path='/404' element={<ErrorPage />}  />
         </Routes>
