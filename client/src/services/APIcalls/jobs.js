@@ -16,3 +16,7 @@ export const getSingleJob =async(id)=>{
 }
 
 
+export const postJob = async()=>{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}`)
+}
+
