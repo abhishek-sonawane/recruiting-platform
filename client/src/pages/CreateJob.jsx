@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FetchCall from '../utils/FetchCalls'
 import { useNavigate } from 'react-router-dom'
+import { postJob } from '../services/APIcalls/jobs'
 
 function CreateJob() {
     const navigate = useNavigate()
@@ -9,18 +10,11 @@ function CreateJob() {
 
     const handleJobSubmit =async(e)=>{
         e.preventDefault()
-        const options  = {
-            method:'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body:JSON.stringify({title:title,description:description})
-        }
-       const fetchData = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/post/post-job`,options)
-       const results = fetchData.json()
-    //    console.log(fetchData.fetchedData)
-       if(fetchData.status==200){
-        navigate('/')
-       }
+      const res = await postJob({title,description})
+      if(res.fetchData.status ==200){
+         navigate('/')
+      }
+
     }
   return (
     <div className='grid place-items-center'>

@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Card from './Card'
+import { getJobs } from '../services/APIcalls/jobs'
+import getCookie from '../utils/FindCookie'
+import GlobalContext from '../context/GlobalContext'
 
-function Feed({data}) {
+function Feed() {
+
+  const [data,setData] = useState({})
+  const {loggedIn,setLoggedin}  = useContext(GlobalContext)
+ 
+
+  useEffect(()=>{
+   const getData = async()=>{
+    const data = await getJobs()
+    setData(data)
+   }
+   getData()
+   if(getCookie('jwt')!=''){
+    setLoggedin(true)
+}
+  },[])
+
   return (
     <div>
     <p className=' font-mono font-bold text-4xl text-red-400 p-6 ' >jobspire</p>
