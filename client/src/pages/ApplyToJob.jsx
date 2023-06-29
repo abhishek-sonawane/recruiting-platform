@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import { postApplyJob } from '../services/APIcalls/jobs'
 
 function ApplyToJob() {
@@ -8,9 +8,13 @@ function ApplyToJob() {
     const [name,setName] = useState()
     const [email,setEmail] = useState()
 
-    const handleSubmit =(e)=>{
+    const navigate = useNavigate()
+    const handleSubmit =async(e)=>{
         e.preventDefault()
-        postApplyJob(jobID,{file:file,name:name,email:email})
+        const res = await postApplyJob(jobID,{file:file,name:name,email:email})
+        if(res.res.status===200){
+          navigate('/')
+        }
     }
 
   return (

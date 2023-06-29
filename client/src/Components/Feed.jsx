@@ -3,6 +3,8 @@ import Card from './Card'
 import { getJobs } from '../services/APIcalls/jobs'
 import getCookie from '../utils/FindCookie'
 import GlobalContext from '../context/GlobalContext'
+import SearchBar from './SearchBar'
+import SideBar from './SideBar'
 
 function Feed() {
 
@@ -23,8 +25,10 @@ function Feed() {
 
   return (
     <div>
-    <p className=' font-mono font-bold text-4xl text-red-400 p-6 ' >jobspire</p>
-    
+      <SideBar />
+
+    <SearchBar/>  
+
    <div className='flex flex-col gap-7 p-7'>
    {data.length>0&&data.map(item=>{
       return <Card key={item._id} details = {item} />

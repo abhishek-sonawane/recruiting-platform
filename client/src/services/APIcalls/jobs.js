@@ -42,6 +42,7 @@ export const postJob = async(payload)=>{
 //apply to job (for everyone)
 export const postApplyJob = async(id,payload)=>{
     const data = new FormData()
+    data.append('job_id',id)
     data.append('name',payload.name)
     data.append('email',payload.email)
     data.append('pdf',payload.file)
@@ -54,5 +55,16 @@ export const postApplyJob = async(id,payload)=>{
     }
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/apply`,options)
     const resultData = res.json()
+    return {res,resultData}
+}
+
+
+// get list of applications 
+
+export const getJobApplications = async()=>{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/recruiter/applications`)
+    const resultData = res.json()
+    console.log('working')
     return resultData
+
 }

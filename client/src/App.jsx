@@ -9,6 +9,8 @@ import PrivateRoute from './Components/PrivateRoute'
 import UserDetails from './pages/UserDetails'
 import CreateJob from './pages/CreateJob'
 import ApplyToJob from './pages/ApplyToJob'
+import SideBar from './Components/SideBar'
+import Dashboard from './pages/Dashboard'
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
   
   return (
      <BrowserRouter>
+     <SideBar />
     <NavBar  />
         <Routes>
           <Route exact path='/' element={  <Feed/>}  />
@@ -38,6 +41,7 @@ function App() {
           <Route element={<PrivateRoute />} >
             <Route path='/user/me' element={<UserDetails/>}  />
             <Route path='/job/post' element={<CreateJob/>}/>
+            <Route path='/recruiter/dashboard'  element={<Dashboard/>} />
             <Route />
           </Route>
           <Route exact path='/login' element={<Login />} />

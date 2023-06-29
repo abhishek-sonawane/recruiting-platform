@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import GlobalContext from '../context/GlobalContext'
-import getCookie from '../utils/FindCookie'
+import getCookie, { getUserIdFromCookie } from '../utils/FindCookie'
 import FetchCall from '../utils/FetchCalls'
 
 function Login() {
@@ -33,10 +33,9 @@ function Login() {
         console.log(data)
         if(result.status===200){
             navigate('/')
-        
-            if(getCookie('jwt')!=''){
+            // if(getCookie('jwt')!=''){
             setLoggedin(true)
-            }
+            localStorage.setItem('loggedinState',true)
 
             
         }
@@ -50,7 +49,7 @@ function Login() {
             <input value={username} onChange={(e)=>setusername(e.target.value)} placeholder='username' className=' input-field w-full' type="text" name="username" id="username" />
 
             <input value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password' className=' input-field w-full' type="password" name="password" id="password" />
-            <input onFocus={()=>console.log('focused')} onBlur={()=>console.log('blurred')}  />
+            <input/>
             <button className='p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full' >login</button>
         </form>
     </div>

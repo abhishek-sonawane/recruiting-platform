@@ -7,14 +7,10 @@ function NavBar() {
 
   const {loggedIn} = useContext(GlobalContext)
   return (
-    <div>
+    <div >
+
       <ul className='flex flex-row items-center  gap-5 md:gap-16 text-slate-500 text-lg font-medium justify-end p-4'>
-        <li> 
-            <NavLink to='/'>
-            Home
-            </NavLink>
-        </li>
-        <li>
+        {/* <li>
             <NavLink to='/about'>
             about
             </NavLink>
@@ -23,8 +19,8 @@ function NavBar() {
             <NavLink to='/job/post'>
             Post Job
             </NavLink>
-        </li>
-        {loggedIn?
+        </li> */}
+        {localStorage.getItem('loggedinState')?
     <li>
       <NavLink to='/user/me'>
   <FaUserCircle fontSize='1.5em' />

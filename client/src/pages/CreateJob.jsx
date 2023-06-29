@@ -11,10 +11,10 @@ function CreateJob() {
     const handleJobSubmit =async(e)=>{
         e.preventDefault()
       const res = await postJob({title,description})
-      if(res.fetchData.status ==200){
+      console.log(res.fetchData.status)
+      if(res.fetchData.status ===200){
          navigate('/')
       }
-
     }
   return (
     <div className='grid place-items-center'>

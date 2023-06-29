@@ -1,6 +1,6 @@
 // const Jobs = require('../models/Jobs')
-const Applications = require("../models/Applications")
 const Jobs = require("../models/Jobs")
+const Applications = require("../models/Applications")
 
 
 const getSingleJob = async (req, res) => {
@@ -9,7 +9,7 @@ const getSingleJob = async (req, res) => {
         if (job) {
             res.status(200).json(job)
         } else {
-            res.status(403).json('something went')
+            res.status(403).json('something went wrong')
         }
     } catch (error) {
         console.log(error)
@@ -26,17 +26,18 @@ const postJob = async(req,res)=>{
         })
         console.log(job)
         await job.save()
-        res.status(200).send('job posted successfully')
+       return res.status(200).json('job posted successfully')
     } catch (error) {
         console.error(`error:${error.message}`)
-        res.status(403).json('something went wrong ')
+       return res.status(403).json('something went wrong ')
     }
 }
 
 const applyToJob = async(req,res)=>{
     try {
-        const {name,email} = req.body
+        const {name,email,job_id} = req.body
         const application = new Applications({
+            job_id: job_id,
             name:name,
             email:email,
             cvPDF:{
@@ -46,13 +47,25 @@ const applyToJob = async(req,res)=>{
         await application.save()
         console.log(req.body)
         console.log(req.file)
-       return res.status(200).send('application posted successfully')
+       return res.status(200).json('application posted successfully')
     } catch (error) {
         console.log(error.message)
       return  res.status(403).json('something went wrong')
     }
 }
 
-module.exports = {getSingleJob,postJob,applyToJob}
+const getApplications = async(req,res)=>{
+    try {
+        const jobApplications = await Applications.find()
+        console.log(jobApplications)
+        return res.json(jobApplications)
+    } catch (error) {
+        console.log(error)
+        return res.status(403).send('something went wrong ')
+    }
+}
+
+
+module.exports = {getSingleJob,postJob,applyToJob,getApplications}
 
 

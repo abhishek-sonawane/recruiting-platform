@@ -10,6 +10,7 @@ const auth = async (req, res, next) => {
 
 
     } catch (error) {
+        console.log(error)
         res.status(401).json('not authorized ')
         // throw new Error('not authorized')
     }
