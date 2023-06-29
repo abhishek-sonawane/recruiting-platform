@@ -52,7 +52,7 @@ function SideBar() {
             </li> */}
 
             <li>
-              <NavLink to='/about'>
+              <NavLink to='/jobs'>
                 <div className='flex flex-row gap-2 items-center'>
               <div>
               <TfiViewListAlt fontSize='1.5rem'  />   

@@ -11,6 +11,7 @@ import CreateJob from './pages/CreateJob'
 import ApplyToJob from './pages/ApplyToJob'
 import SideBar from './Components/SideBar'
 import Dashboard from './pages/Dashboard'
+import About from './pages/About'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
             <Route />
           </Route>
           <Route exact path='/login' element={<Login />} />
+          <Route path='/about' element={<About/>} />
           <Route path='/job/:jobID' element={<SingleJob/>} />
           <Route path='/job/apply/:jobID' element={<ApplyToJob/>} />
           <Route path='/*' element={<ErrorPage />}  />

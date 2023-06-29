@@ -18,9 +18,7 @@ function PrivateRoute() {
             console.log(localStorage.getItem('loggedinState'))
            if( localStorage.getItem('loggedinState')==null){
                localStorage.setItem('loggedinState',true)
-            }else{
-               return 
-           }
+            }
             // const userid = getUserIdFromCookie(getCookie('jwt'))
             // console.log(userid)
             // setUserId(userid)

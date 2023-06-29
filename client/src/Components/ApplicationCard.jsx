@@ -21,7 +21,7 @@ function ApplicationCard({item}) {
         <p>{item.cvPDF.path.replace(/\\/g, "/")}</p>
 
         <Document onLoadError={console.error} onLoadSuccess={onDocumentLoadSuccess} file={`/${item.cvPDF.path.replace(/\\/g, "/")}`}>
-            <Page pageNumber={pageNumber} />
+            <Page className='border border-red-600' pageNumber={pageNumber} />
         </Document>
     </div>
   )
