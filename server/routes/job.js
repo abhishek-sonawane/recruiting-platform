@@ -9,7 +9,13 @@ const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./temp/uploads')
     },
+    fileFilter: (req,file,cb)=>{
+        console.log(file)
+        cb(null,true)
+    }
+    ,
     filename : (req,file,cb)=>{
+        console.log(`this is file from server :${file}`)
         cb(null,`${Date.now()}-${file.originalname}`)
     }
 })
