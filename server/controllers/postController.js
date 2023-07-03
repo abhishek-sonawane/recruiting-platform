@@ -18,8 +18,12 @@ const getSingleJob = async (req, res) => {
 }
 
 const postJob = async(req,res)=>{
+//     console.log(req.body)
+//    const schema = PostJobSchema.safeParse(req.body)
+//    console.log(schema)
+//    if(schema.success){
     try { 
-        const { title , description } = req.body
+        const { title , description } = req.body;
         const job = new Jobs({
             title,
             description
@@ -31,6 +35,10 @@ const postJob = async(req,res)=>{
         console.error(`error:${error.message}`)
        return res.status(403).json('something went wrong ')
     }
+//    }
+//    else{
+//     return res.json('something went wrong with zod')
+//    }
 }
 
 const applyToJob = async(req,res)=>{
@@ -54,6 +62,28 @@ const applyToJob = async(req,res)=>{
     }
 }
 
+const updateSingleJob =async(req,res)=>{
+   try {
+    console.log(req.params.id)
+    console.log(req.body.value)
+    const job =  await Jobs.findByIdAndUpdate(
+       '648065b8374394ea522a182c',
+    {   [req.body.property] : req.body.value}
+        
+      );
+    if(!job){
+        return res.status(403).json('job not found')
+    }
+    console.log(job)
+   return res.status(200).json('job updated successfully')
+   } catch (error) {
+    console.log(error)
+   return res.status(403).json('something went wrong')
+   }
+    
+}
+
+
 const getApplications = async(req,res)=>{
     try {
         const jobApplications = await Applications.find()
@@ -66,6 +96,6 @@ const getApplications = async(req,res)=>{
 }
 
 
-module.exports = {getSingleJob,postJob,applyToJob,getApplications}
+module.exports = {getSingleJob,postJob,applyToJob,getApplications,updateSingleJob}
 
 

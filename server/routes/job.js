@@ -2,8 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Jobs = require('../models/Jobs')
 const auth = require('../middleware/authMiddleware')
-const {getSingleJob,postJob, applyToJob} = require('../controllers/postController')
+const {getSingleJob,postJob, applyToJob, updateSingleJob} = require('../controllers/postController')
 const multer = require('multer')
+const validationMiddleware = require('../middleware/schemaMiddleware')
+const JobSchema = require('./job.schema')
+const ApplicationSchema = require('./application.schema')
 
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
@@ -24,7 +27,8 @@ const upload  = multer({storage})
 
 
 router.get('/:id',getSingleJob )
-router.post('/post/post-job',auth,postJob)
-router.post('/apply', upload.single('pdf'), applyToJob)
+router.post('/post/post-job', validationMiddleware(JobSchema),postJob)
+router.post('/apply', upload.single('pdf'),validationMiddleware(ApplicationSchema), applyToJob)
+router.post('/update/:id',updateSingleJob)
 
 module.exports = router

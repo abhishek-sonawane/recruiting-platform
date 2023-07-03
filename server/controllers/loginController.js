@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
             sameSite: 'strict',
             maxAge: 30 * 24 * 60 * 60 * 1000,
         })
-        return res.status(200).json({userId:user._id,message:'job posted successfully'})
+        return res.status(200).json({userId:user._id,message:'user loggedIn successfully'})
 
     }
     else {
