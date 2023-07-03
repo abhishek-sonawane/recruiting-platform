@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Jobs = require('../models/Jobs')
 const index = require('../controllers/index')
-const { getApplications } = require('../controllers/postController')
+const { getApplications } = require('../controllers/jobController')
 const auth = require('../middleware/authMiddleware')
 
 

@@ -53,8 +53,8 @@ const applyToJob = async(req,res)=>{
             }
         })
         await application.save()
-        console.log(req.body)
-        console.log(req.file)
+        // console.log(req.body)
+        // console.log(req.file)
        return res.status(200).json('application posted successfully')
     } catch (error) {
         console.log(error.message)
