@@ -1,11 +1,12 @@
 // const Jobs = require('../models/Jobs')
 const Jobs = require("../models/Jobs")
 const Applications = require("../models/Applications")
+const { findJobByID, postApplyToJob } = require("../services/jobService")
 
 
 const getSingleJob = async (req, res) => {
     try {
-        const job = await Jobs.findById(req.params.id)
+        const job = await findJobByID(req.params.id)
         if (job) {
             res.status(200).json(job)
         } else {
@@ -44,21 +45,13 @@ const postJob = async(req,res)=>{
 const applyToJob = async(req,res)=>{
     try {
         const {name,email,job_id} = req.body
-        const application = new Applications({
-            job_id: job_id,
-            name:name,
-            email:email,
-            cvPDF:{
-                path: req.file.path
-            }
-        })
-        await application.save()
+      await postApplyToJob({name:name,email:email,job_id:job_id,filepath:req.file.path})
         // console.log(req.body)
         // console.log(req.file)
        return res.status(200).json('application posted successfully')
     } catch (error) {
         console.log(error.message)
-      return  res.status(403).json('something went wrong')
+      return  res.status(403).json(`ApplytoJob error:${error.message} `)
     }
 }
 
@@ -67,7 +60,7 @@ const updateSingleJob =async(req,res)=>{
     console.log(req.params.id)
     console.log(req.body.value)
     const job =  await Jobs.findByIdAndUpdate(
-       '648065b8374394ea522a182c',
+       req.params.id,
     {   [req.body.property] : req.body.value}
         
       );
@@ -84,6 +77,20 @@ const updateSingleJob =async(req,res)=>{
 }
 
 
+const deleteSingleJob = async(req,res)=>{
+    try {
+        const job = await Jobs.findByIdAndDelete(req.params.id)
+        if(!job){
+            return res.status(403).json('couldnt find the job')
+        }
+        console.log(job)
+       return res.status(200).json('job delete successfully')
+    } catch (error) {
+       return res.status(403).json('couldnt delete job')
+    }
+}
+
+
 const getApplications = async(req,res)=>{
     try {
         const jobApplications = await Applications.find()
@@ -96,6 +103,6 @@ const getApplications = async(req,res)=>{
 }
 
 
-module.exports = {getSingleJob,postJob,applyToJob,getApplications,updateSingleJob}
+module.exports = {getSingleJob,postJob,applyToJob,getApplications,updateSingleJob,deleteSingleJob}
 
 

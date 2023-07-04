@@ -7,6 +7,7 @@ const validationMiddleware = (schema) => (req,res,next)=> {
                 body:req.body,
                 query: req.query,
                 params: req.params,
+                // file:req.file
             })  
 
             return next()

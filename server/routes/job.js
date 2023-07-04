@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Jobs = require('../models/Jobs')
 const auth = require('../middleware/authMiddleware')
-const {getSingleJob,postJob, applyToJob, updateSingleJob} = require('../controllers/jobController')
+const {getSingleJob,postJob, applyToJob, updateSingleJob, deleteSingleJob} = require('../controllers/jobController')
 const multer = require('multer')
 const validationMiddleware = require('../middleware/schemaMiddleware')
 const JobSchema = require('./job.schema')
@@ -25,6 +25,7 @@ const upload  = multer({storage, fileFilter : (req,file,cb)=>{
         cb(null,true)
     }else{  
         cb(null, false);
+        return new Error('bad file input')
     }
 }})
 
@@ -33,5 +34,6 @@ router.get('/:id',getSingleJob )
 router.post('/post/post-job', validationMiddleware(JobSchema),postJob)
 router.post('/apply', upload.single('pdf'),validationMiddleware(ApplicationSchema), applyToJob)
 router.post('/update/:id',updateSingleJob)
+router.post('/delete/:id',deleteSingleJob)
 
 module.exports = router

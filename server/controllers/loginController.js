@@ -1,9 +1,10 @@
 const Users = require("../models/Users")
+const { findUserByProperty } = require("../services/userService")
 const generateToken = require("../utils/generateToken")
 
 const loginUser = async (req, res) => {
     const { username, password } = req.body
-    const user = await Users.findOne({ username: username })
+    const user = await findUserByProperty(username)
     
     if (user) {
         if (user.password !== password) {
