@@ -12,6 +12,7 @@ import ApplyToJob from './pages/ApplyToJob'
 import SideBar from './Components/SideBar'
 import Dashboard from './pages/Dashboard'
 import About from './pages/About'
+import { useEffect } from 'react'
 
 
 function App() {
@@ -30,7 +31,12 @@ function App() {
 //     setLoggedin(true)
 // }
 //   },[])
-
+const mycomp = (
+  <p>hello world</p>
+)
+useEffect(()=>{
+  console.log(mycomp)
+},[])
   
   return (
      <BrowserRouter>
@@ -49,7 +55,7 @@ function App() {
           <Route path='/about' element={<About/>} />
           <Route path='/job/:jobID' element={<SingleJob/>} />
           <Route path='/job/apply/:jobID' element={<ApplyToJob/>} />
-          <Route path='/*' element={<ErrorPage />}  />
+          {/* <Route path='/*' element={<ErrorPage />}  /> */}
           <Route path='/404' element={<ErrorPage />}  />
         </Routes>
     </BrowserRouter>

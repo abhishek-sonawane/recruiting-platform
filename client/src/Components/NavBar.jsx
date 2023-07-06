@@ -20,7 +20,7 @@ function NavBar() {
             Post Job
             </NavLink>
         </li> */}
-        {localStorage.getItem('loggedinState')?
+        {loggedIn?
     <li>
       <NavLink to='/user/me'>
   <FaUserCircle fontSize='1.5em' />

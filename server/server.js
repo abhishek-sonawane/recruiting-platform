@@ -11,6 +11,8 @@ const index = require('./routes/index.js')
 const job = require('./routes/job')
 const login = require('./routes/loginRoute')
 const user = require('./routes/user')
+const path = require('path')
+const auth = require('./middleware/authMiddleware')
 
 const corsOptions = {
     origin: [process.env.CLIENT_DOMAIN_URL, 'http://localhost:8000'],
@@ -40,6 +42,7 @@ app.use('/',index)
 app.use('/job',job)
 app.use('/login',login)
 app.use('/user',user)
+app.use('/file',auth,express.static(path.join(__dirname,'temp/uploads')))
 
 // app.get('/', async (req, res) => {
 //     try {

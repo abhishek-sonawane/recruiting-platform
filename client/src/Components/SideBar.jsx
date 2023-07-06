@@ -65,7 +65,7 @@ function SideBar() {
 
 
             {/* 2 */}
-           {localStorage.getItem('loggedinState') ? <li>
+           {loggedIn ? <li>
              <NavLink to='/job/post'>
               <div className=' text-black flex flex-row gap-2 items-center'>
              <div>

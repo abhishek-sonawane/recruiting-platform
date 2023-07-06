@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { postLogoutFromServer } from '../services/APIcalls/user'
+import GlobalContext from '../context/GlobalContext'
 function UserDetails({userid}) {
   useEffect(()=>{
     console.log(userid)
@@ -7,9 +9,13 @@ function UserDetails({userid}) {
 
   },[])
 
+  const {loggedIn,setLoggedin} = useContext(GlobalContext)
   const navigate = useNavigate()
-  const logoutHander = ()=>{
-      localStorage.removeItem('loggedinState')
+  const logoutHander = async()=>{
+    const dat = await postLogoutFromServer()
+    console.log(dat)
+    setLoggedin(false)
+      navigate('/login')
   }
   return (
     <div>

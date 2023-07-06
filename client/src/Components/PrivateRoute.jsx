@@ -14,23 +14,23 @@ function PrivateRoute() {
         if(getCookie('jwt')!==''){
             console.log('hitting the condition')
             console.log(` from the if statement of private route ${getCookie('jwt')}`)
-            setLoggedin(true)
-            console.log(localStorage.getItem('loggedinState'))
-           if( localStorage.getItem('loggedinState')==null){
-               localStorage.setItem('loggedinState',true)
-            }
-            // const userid = getUserIdFromCookie(getCookie('jwt'))
-            // console.log(userid)
-            // setUserId(userid)
-        }else{
-            setLoggedin(false)
-            return
-        }
+            // setLoggedin(true)
+            console.log(localStorage.getItem('loggedinState'))}
+        //    if( localStorage.getItem('loggedinState')==null){
+        //        localStorage.setItem('loggedinState',true)
+        //     }
+        //     // const userid = getUserIdFromCookie(getCookie('jwt'))
+        //     // console.log(userid)
+        //     // setUserId(userid)
+        // else{
+        //     setLoggedin(false)
+        //     return
+        // }
        
     },[])
 
 
-          return  localStorage.getItem('loggedinState') ? <Outlet userid={userId} /> : (<Navigate to='/login' state={{location}} replace />)
+          return  loggedIn ? <Outlet userid={userId} /> : (<Navigate to='/login' state={{location}} replace />)
 
 }
 

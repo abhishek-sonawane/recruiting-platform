@@ -12,7 +12,7 @@ function Login() {
         const {setLoggedin ,loggedIn} = useContext(GlobalContext)   
         const [username,setusername] = useState('')
         const [password, setPassword] = useState('')
-        const navigate = useNavigate()
+        const navigate = useNavigate()  
 
     const loginFormSubmit =(e)=>{
         e.preventDefault()
@@ -33,9 +33,10 @@ function Login() {
         console.log(data)
         if(result.status===200){
             navigate('/')
+            // window.location.reload()
             // if(getCookie('jwt')!=''){
             setLoggedin(true)
-            localStorage.setItem('loggedinState',true)
+            // localStorage.setItem('loggedinState',true)
 
             
         }

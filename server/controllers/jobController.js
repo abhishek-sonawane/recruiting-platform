@@ -61,8 +61,9 @@ const updateSingleJob =async(req,res)=>{
     console.log(req.body.value)
     const job =  await Jobs.findByIdAndUpdate(
        req.params.id,
-    {   [req.body.property] : req.body.value}
-        
+    {   title:req.body.title,
+        description:req.body.description
+    }
       );
     if(!job){
         return res.status(403).json('job not found')

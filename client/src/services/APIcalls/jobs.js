@@ -1,3 +1,4 @@
+import { json } from "react-router-dom"
 
 // get all jobs 
 export const getJobs = async()=>{
@@ -62,9 +63,41 @@ export const postApplyJob = async(id,payload)=>{
 // get list of applications 
 
 export const getJobApplications = async()=>{
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/recruiter/applications`)
+    const options  = {
+        method:'GET',
+        credentials: 'include',
+        // headers: { 'Content-Type': 'application/json' },
+        // body:data
+    }
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/recruiter/applications`,options)
     const resultData = res.json()
     console.log('working')
     return resultData
 
+}
+
+
+// update job applications
+
+export const postEditJob = async(id,title,desc)=>{
+
+    const options ={
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:JSON.stringify({title,desc})
+    }
+
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/update/${id}`,options)
+
+}
+
+export const postDeleteJob = async(id)=>{
+    const options ={
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' }
+
+    }
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/delete/${id}`,options)
+    const resultData = res.json()
+    return resultData
 }
