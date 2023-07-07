@@ -58,7 +58,7 @@ const applyToJob = async(req,res)=>{
 const updateSingleJob =async(req,res)=>{
    try {
     console.log(req.params.id)
-    console.log(req.body.value)
+    console.log(`Data from updateSingleJob ${JSON.stringify(req.body)}`)
     const job =  await Jobs.findByIdAndUpdate(
        req.params.id,
     {   title:req.body.title,

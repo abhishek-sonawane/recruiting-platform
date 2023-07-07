@@ -79,16 +79,18 @@ export const getJobApplications = async()=>{
 
 // update job applications
 
-export const postEditJob = async(id,title,desc)=>{
+export const postEditJob = async(id,title,description)=>{
 
     const options ={
         method:'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:JSON.stringify({title,desc})
+        body:JSON.stringify({title,description}),
+        credentials:'include'
     }
 
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/update/${id}`,options)
-
+    const data = res.json()
+    return data
 }
 
 export const postDeleteJob = async(id)=>{

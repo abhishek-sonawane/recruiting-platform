@@ -22,9 +22,10 @@ function JobTableCard({applications,setApplications,jobs, setJobs,item}) {
       }else return null
     }
 
-    const saveButtonHandler =(id)=>{
+    const saveButtonHandler =async(id)=>{
         setEditToggle(false)
-        postEditJob(id,title,description)
+     const res =  await postEditJob(id,title,description)
+      console.log(res)
     }
  if(editToggle){
     return (
@@ -47,7 +48,7 @@ function JobTableCard({applications,setApplications,jobs, setJobs,item}) {
         <div>
             <div className=' p-4 border flex flex-row gap-9 justify-start content-start text-left' >
               <p className=' w-1/4' >{title}</p>
-              <p className=' w-1/3 ml-9 overflow-hidden whitespace-nowrap  overflow-ellipsis' >{description}</p>
+              <p className=' w-1/3 ml-9 ' >{description}</p>
               <button onClick={()=>editButtonHandler()} className='px-5 py-1 text-md text-white font-semibold bg-red-400 rounded-xl h-min' >edit</button>
               <button onClick={()=>deleteButtonHandler(item._id)} className='px-5 py-1 text-md text-white font-semibold bg-red-400 rounded-xl h-min' >delete</button>
             </div>
