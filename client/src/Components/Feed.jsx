@@ -5,17 +5,32 @@ import getCookie from '../utils/FindCookie'
 import GlobalContext from '../context/GlobalContext'
 import SearchBar from './SearchBar'
 import SideBar from './SideBar'
+import { setInitialJobs } from '../slices/JobsSlice'
+import {useDispatch,useSelector} from 'react-redux'
+
 
 function Feed() {
 
-  const [data,setData] = useState({})
+  const [query,setQuery] = useState('')
+
+  const findQuery =(data)=>{
+    setQuery(data)
+  }
+
+  const dispatch = useDispatch()
+  const data = useSelector((state)=>state.setJobs)
+  const filteredData = data.filter((item)=>item.title.toLowerCase().includes(query.toLowerCase().trim()))
+   
+  // const [data,setData] = useState([])
   const {loggedIn,setLoggedin}  = useContext(GlobalContext)
  
 
   useEffect(()=>{
    const getData = async()=>{
-    const data = await getJobs()
-    setData(data)
+     const data = await getJobs()
+     
+     console.log('getdata fn ::',data)
+     dispatch(setInitialJobs(data))
    }
    getData()
    if(getCookie('jwt')!=''){
@@ -27,10 +42,11 @@ function Feed() {
     <div>
       <SideBar />
 
-    <SearchBar/>  
+    <SearchBar findQuery={findQuery} query={query} />  
 
    <div className='flex flex-col gap-7 p-7'>
-   {data.length>0&&data.map(item=>{
+    {console.log(data)}
+   {filteredData&&filteredData.map(item=>{
       return <Card key={item._id} details = {item} />
     })}
    </div>

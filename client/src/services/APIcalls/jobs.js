@@ -45,7 +45,7 @@ export const postApplyJob = async(id,payload)=>{
     const data = new FormData()
     data.append('job_id',id)
     data.append('name',payload.name)
-    data.append('email',payload.email)
+    data.append('email',payload.email)  
     data.append('pdf',payload.file)
     console.log(data)
     const options  = {
