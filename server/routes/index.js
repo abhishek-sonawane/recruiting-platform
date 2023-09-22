@@ -9,6 +9,10 @@ const path = require('path')
 
 router.get('/', index )
 router.get('/recruiter/applications',auth,getApplications)
+// protected route
+router.get('/recr/test',auth,(req,res)=>{
+        res.send(req.headers.authorization)
+})
 // router.get('/file',express.static(path.join(__dirname,'temp/uploads')))
 
 module.exports = router

@@ -3,9 +3,12 @@ const Users = require('../models/Users')
 
 const auth = async (req, res, next) => {
     try {
-        const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET)
-        console.log(`line from auth middleware :${decoded.userID}`)
-        req.user = await Users.findById(decoded.userID)
+        const token = req.headers.authorization.split(' ')[1]
+        console.log(token)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        console.log(`line from auth middleware :${JSON.stringify(decoded)}`)
+        const user = await Users.findById(decoded.userID)
+        console.log(user)
         next()
 
 

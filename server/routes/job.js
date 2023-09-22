@@ -31,9 +31,9 @@ const upload  = multer({storage, fileFilter : (req,file,cb)=>{
 
 
 router.get('/:id',getSingleJob )
-router.post('/post/post-job', validationMiddleware(JobSchema),postJob)
-router.post('/apply', upload.single('pdf'),validationMiddleware(ApplicationSchema), applyToJob)
-router.post('/update/:id',updateSingleJob)
-router.post('/delete/:id',deleteSingleJob)
+router.post('/post/post-job', validationMiddleware(JobSchema),auth,postJob)
+router.post('/apply', upload.single('pdf'),validationMiddleware(ApplicationSchema),auth, applyToJob)
+router.post('/update/:id',auth,updateSingleJob)
+router.post('/delete/:id',auth,deleteSingleJob)
 
 module.exports = router
