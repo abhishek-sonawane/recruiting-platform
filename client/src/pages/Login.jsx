@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import getCookie, { getUserIdFromCookie } from '../utils/FindCookie'
 import FetchCall from '../utils/FetchCalls'
+import { loginUser } from '../services/APIcalls/user'
 
 function Login() {
     useEffect(()=>{
@@ -20,25 +21,15 @@ function Login() {
     }
 
     const postUser = async()=>{
-        const options  = {
-            method:'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body:JSON.stringify({username:username,password:password})
-        }
-        const result =  await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/login`,options)
-        console.log(result)
-        console.log(result.status)
-        const data = await result.json()
-        console.log(data)
+        const {result,data} = await loginUser(username,password)
+        console.log('result',result)
+        localStorage.setItem('token',data.token)
         if(result.status===200){
             navigate('/')
             // window.location.reload()
             // if(getCookie('jwt')!=''){
             setLoggedin(true)
-            // localStorage.setItem('loggedinState',true)
-
-            
+            // localStorage.setItem('loggedinState',true)    
         }
     }
 

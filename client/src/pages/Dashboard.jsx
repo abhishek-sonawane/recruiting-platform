@@ -11,9 +11,15 @@ function Dashboard() {
 
     useEffect(()=>{
        const getData = async()=>{
+      try {
         const data =  await getJobApplications()
+        // console.log('data from error try catch',data)
         setApplications(data)
+      } catch (error) {
+        console.log('Error while fetching job applications',error)
+      }
         const jobData = await getJobs()
+        console.log(jobData)
        setJobs(jobData)
        }
        getData()
@@ -28,9 +34,9 @@ function Dashboard() {
   <div className='drop-shadow-xl p-5 bg-slate-50 rounded-lg overflow-auto  w-full max-w-7xl h-full max-h-[25rem]' >
     <div >
     <div className='flex flex-row flex-wrap gap-6 justify-center'>
-     {applications && applications.length>0 ? applications.map(item=>{
+     {applications && applications.length ? applications.map(item=>{
         return <ApplicationCard item={item} />
-      }):<>no Applications found</>}
+      }) : <>no Applications found</>}
      </div>
     </div>
       

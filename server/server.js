@@ -42,7 +42,7 @@ app.use('/',index)
 app.use('/job',job)
 app.use('/login',login)
 app.use('/user',user)
-app.use('/file',auth,express.static(path.join(__dirname,'temp/uploads')))
+app.use('/file',express.static(path.join(__dirname,'temp/uploads')))
 
 // app.get('/', async (req, res) => {
 //     try {

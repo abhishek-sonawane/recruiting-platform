@@ -42,6 +42,7 @@ export const postJob = async(payload)=>{
 
 //apply to job (for everyone)
 export const postApplyJob = async(id,payload)=>{
+   try {
     const data = new FormData()
     data.append('job_id',id)
     data.append('name',payload.name)
@@ -51,12 +52,18 @@ export const postApplyJob = async(id,payload)=>{
     const options  = {
         method:'POST',
         credentials: 'include',
+        headers: {
+            Authorization: `bearer ${localStorage.getItem('token')}`
+        },
         // headers: { 'Content-Type': 'application/json' },
         body:data
     }
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/apply`,options)
     const resultData = res.json()
     return {res,resultData}
+   } catch (error) {
+    console.log('error from postApplyJob::',error)
+   }
 }
 
 
@@ -66,6 +73,9 @@ export const getJobApplications = async()=>{
     const options  = {
         method:'GET',
         credentials: 'include',
+        headers: {
+            Authorization: `bearer ${localStorage.getItem('token')}`
+        }
         // headers: { 'Content-Type': 'application/json' },
         // body:data
     }
