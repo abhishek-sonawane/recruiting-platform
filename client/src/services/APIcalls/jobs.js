@@ -1,4 +1,10 @@
-import { json } from "react-router-dom"
+
+export const globalOptions = {
+    credentials: 'include',
+        headers: {
+            Authorization: `bearer ${JSON.parse(localStorage.getItem('userData'))?.token}`
+        }
+}
 
 // get all jobs 
 export const getJobs = async()=>{
@@ -7,6 +13,7 @@ export const getJobs = async()=>{
     const data = res.json()
     return data
 }
+
 
 
 // get single job 
@@ -22,9 +29,12 @@ export const postJob = async(payload)=>{
     // data.append('title',payload.title)
     // data.append('description',payload.description)
     const options  = {
+        ...globalOptions,
         method:'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            ...globalOptions.headers,
+            'Content-Type': 'application/json'
+         },
         body:JSON.stringify({title:payload.title,description:payload.description})
     }
     const fetchData = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/post/post-job`,options)
@@ -50,12 +60,9 @@ export const postApplyJob = async(id,payload)=>{
     data.append('pdf',payload.file)
     console.log(data)
     const options  = {
+        ...globalOptions,
         method:'POST',
-        credentials: 'include',
-        headers: {
-            Authorization: `bearer ${localStorage.getItem('token')}`
-        },
-        // headers: { 'Content-Type': 'application/json' },
+         // headers: { 'Content-Type': 'application/json' },
         body:data
     }
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/apply`,options)
@@ -71,11 +78,8 @@ export const postApplyJob = async(id,payload)=>{
 
 export const getJobApplications = async()=>{
     const options  = {
-        method:'GET',
-        credentials: 'include',
-        headers: {
-            Authorization: `bearer ${localStorage.getItem('token')}`
-        }
+        ...globalOptions,
+        method:'GET'
         // headers: { 'Content-Type': 'application/json' },
         // body:data
     }
@@ -92,10 +96,12 @@ export const getJobApplications = async()=>{
 export const postEditJob = async(id,title,description)=>{
 
     const options ={
+        ...globalOptions,
         method:'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            ...globalOptions.headers,
+            'Content-Type': 'application/json' },
         body:JSON.stringify({title,description}),
-        credentials:'include'
     }
 
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/update/${id}`,options)

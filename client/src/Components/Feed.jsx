@@ -19,7 +19,7 @@ function Feed() {
 
   const dispatch = useDispatch()
   const data = useSelector((state)=>state.setJobs)
-  const filteredData = data.filter((item)=>item.title.toLowerCase().includes(query.toLowerCase().trim()))
+  const filteredData = data.filter((item)=>item.title.toLowerCase().includes(query.toLowerCase().trim()) || item.description.toLowerCase().includes(query.toLowerCase().trim()))
    
   // const [data,setData] = useState([])
   const {loggedIn,setLoggedin}  = useContext(GlobalContext)
@@ -31,16 +31,14 @@ function Feed() {
      
      console.log('getdata fn ::',data)
      dispatch(setInitialJobs(data))
+     document.title = 'Jobs'
    }
    getData()
-   if(getCookie('jwt')!=''){
-    setLoggedin(true)
-}
   },[])
 
   return (
     <div>
-      <SideBar />
+      {/* <SideBar /> */}
 
     <SearchBar findQuery={findQuery} query={query} />  
 

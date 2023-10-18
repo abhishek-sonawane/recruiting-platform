@@ -15,7 +15,7 @@ const path = require('path')
 const auth = require('./middleware/authMiddleware')
 
 const corsOptions = {
-    origin: [process.env.CLIENT_DOMAIN_URL, 'http://localhost:8000'],
+    origin: [process.env.CLIENT_DOMAIN_URL, 'http://localhost:8000','http://192.168.0.140:8000'],
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }

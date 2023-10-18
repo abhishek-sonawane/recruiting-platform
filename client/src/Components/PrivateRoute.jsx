@@ -11,11 +11,11 @@ function PrivateRoute() {
     const [userId , setUserId] = useState('')
     
     useEffect(()=>{
-        if(getCookie('jwt')!==''){
-            console.log('hitting the condition')
-            console.log(` from the if statement of private route ${getCookie('jwt')}`)
-            // setLoggedin(true)
-            console.log(localStorage.getItem('loggedinState'))}
+        // if(getCookie('jwt')!==''){
+        //     console.log('hitting the condition')
+        //     console.log(` from the if statement of private route ${getCookie('jwt')}`)
+        //     // setLoggedin(true)
+        //     console.log(localStorage.getItem('loggedinState'))}
         //    if( localStorage.getItem('loggedinState')==null){
         //        localStorage.setItem('loggedinState',true)
         //     }
@@ -30,7 +30,7 @@ function PrivateRoute() {
     },[])
 
 
-          return  loggedIn ? <Outlet userid={userId} /> : (<Navigate to='/login' state={{location}} replace />)
+          return  loggedIn ? <Outlet userid={userId} /> : (<Navigate to='/admin' state={{location}} replace />)
 
 }
 

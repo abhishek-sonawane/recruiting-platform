@@ -1,7 +1,10 @@
+const { findUserById } = require("../services/userService")
 
 
-const getUserDetails  = (req, res) => {
-    res.json('protected route')
+const getUserDetails  = async(req, res) => {
+    console.log('adhasjdsahdajkd',req.params.id)
+   const user = await findUserById(req.params.id)
+    res.json(user)
 }
 
 const getFileFromServer =()=>{

@@ -33,8 +33,8 @@ function Dashboard() {
   {/* applications section */}
   <div className='drop-shadow-xl p-5 bg-slate-50 rounded-lg overflow-auto  w-full max-w-7xl h-full max-h-[25rem]' >
     <div >
-    <div className='flex flex-row flex-wrap gap-6 justify-center'>
-     {applications && applications.length ? applications.map(item=>{
+    <div className='flex flex-row flex-wrap gap-6  justify-center'>
+     {applications && applications.length ? applications?.map(item=>{
         return <ApplicationCard item={item} />
       }) : <>no Applications found</>}
      </div>

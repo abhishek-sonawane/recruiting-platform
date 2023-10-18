@@ -5,5 +5,12 @@ const findUserByProperty =async(property)=>{
     return user
 }
 
-
-module.exports = {findUserByProperty}
+const findUserById = async(id)=>{
+    try {
+        const user = await Users.findById(id)
+        return user
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+module.exports = {findUserByProperty,findUserById}

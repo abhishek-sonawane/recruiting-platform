@@ -5,10 +5,11 @@ import useLocalStorage from "../hooks/UseLocalStorage";
  const GlobalContext = createContext("")
 
 export const ContextProvider = ({children})=>{
-    const [loggedIn,setLoggedin] = useLocalStorage('loggedinState',true)
+    const [loggedIn,setLoggedin] = useLocalStorage('loggedinState',false)
+    const [userData,setUserData] = useLocalStorage('userData',{})
 
     return(
-    <GlobalContext.Provider value={{loggedIn,setLoggedin}}>
+    <GlobalContext.Provider value={{loggedIn,setLoggedin,userData,setUserData}}>
         {children}
     </GlobalContext.Provider>
     )

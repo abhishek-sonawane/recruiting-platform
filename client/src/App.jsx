@@ -12,10 +12,15 @@ import ApplyToJob from './pages/ApplyToJob'
 import SideBar from './Components/SideBar'
 import Dashboard from './pages/Dashboard'
 import About from './pages/About'
-import { useEffect } from 'react'
+import { useEffect, useState ,useContext} from 'react'
+import GlobalContext from './context/GlobalContext'
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
+  const {setLoggedin ,loggedIn} = useContext(GlobalContext)   
+  
 
 //   const [data,setData] = useState({})
 //   const {loggedIn,setLoggedin}  = useContext(GlobalContext)
@@ -40,22 +45,23 @@ useEffect(()=>{
   
   return (
      <BrowserRouter>
+     <ToastContainer />
      <SideBar />
     <NavBar  />
         <Routes>
           <Route exact path='/' element={  <Feed/>}  />
           {/* protected routes */}
           <Route element={<PrivateRoute />} >
-            <Route path='/user/me' element={<UserDetails/>}  />
-            <Route path='/job/post' element={<CreateJob/>}/>
-            <Route path='/recruiter/dashboard'  element={<Dashboard/>} />
+            <Route path='admin/user/me' element={<UserDetails/>}  />
+            <Route path='admin/job/post' element={<CreateJob/>}/>
+            <Route path='admin/recruiter/dashboard'  element={<Dashboard/>} />
             <Route />
           </Route>
-          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/admin' element={ loggedIn? <Dashboard/>: <Login />} />
           <Route path='/about' element={<About/>} />
           <Route path='/job/:jobID' element={<SingleJob/>} />
           <Route path='/job/apply/:jobID' element={<ApplyToJob/>} />
-          {/* <Route path='/*' element={<ErrorPage />}  /> */}
+          <Route path='/*' element={<ErrorPage />}  />
           <Route path='/404' element={<ErrorPage />}  />
         </Routes>
     </BrowserRouter>

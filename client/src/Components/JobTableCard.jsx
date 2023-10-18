@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { postDeleteJob, postEditJob } from '../services/APIcalls/jobs'
+import { useToast } from '../context/ToastContext'
 
 function JobTableCard({applications,setApplications,jobs, setJobs,item}) {
 
     const [title,setTitle] = useState(item.title)
     const [description,setDescription] = useState(item.description)
     const [editToggle, setEditToggle] = useState(false)
+    const toast = useToast()
 
     const editButtonHandler = (id)=>{
         alert('edit') 
@@ -25,6 +27,10 @@ function JobTableCard({applications,setApplications,jobs, setJobs,item}) {
     const saveButtonHandler =async(id)=>{
         setEditToggle(false)
      const res =  await postEditJob(id,title,description)
+     toast.open(
+      <div className="alert alert-success">
+      <span>Job Edited.</span>
+    </div>)
       console.log(res)
     }
  if(editToggle){

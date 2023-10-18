@@ -8,9 +8,9 @@ import { loginUser } from '../services/APIcalls/user'
 
 function Login() {
     useEffect(()=>{
-        console.log(getCookie("jwt"))
+    
     },[])
-        const {setLoggedin ,loggedIn} = useContext(GlobalContext)   
+        const {setLoggedin ,loggedIn,userData,setUserData} = useContext(GlobalContext)   
         const [username,setusername] = useState('')
         const [password, setPassword] = useState('')
         const navigate = useNavigate()  
@@ -22,14 +22,12 @@ function Login() {
 
     const postUser = async()=>{
         const {result,data} = await loginUser(username,password)
-        console.log('result',result)
-        localStorage.setItem('token',data.token)
+        console.log('result',data)
+        setUserData(data)
+        // localStorage.setItem('token',data.token)
         if(result.status===200){
+            setLoggedin(true) 
             navigate('/')
-            // window.location.reload()
-            // if(getCookie('jwt')!=''){
-            setLoggedin(true)
-            // localStorage.setItem('loggedinState',true)    
         }
     }
 

@@ -5,7 +5,7 @@ const {getUserDetails, postLogoutUser} = require('../controllers/userController'
 
 
 
-router.get('/user/me', auth,getUserDetails)
+router.get('/user/:id', auth,getUserDetails)
 
 router.post('/user/logout',auth,postLogoutUser)
 
