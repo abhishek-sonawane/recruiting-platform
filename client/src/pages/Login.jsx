@@ -5,6 +5,7 @@ import GlobalContext from '../context/GlobalContext'
 import getCookie, { getUserIdFromCookie } from '../utils/FindCookie'
 import FetchCall from '../utils/FetchCalls'
 import { loginUser } from '../services/APIcalls/user'
+import { useToast } from '../context/ToastContext'
 
 function Login() {
     useEffect(()=>{
@@ -14,6 +15,8 @@ function Login() {
         const [username,setusername] = useState('')
         const [password, setPassword] = useState('')
         const navigate = useNavigate()  
+        const toast = useToast();
+
 
     const loginFormSubmit =(e)=>{
         e.preventDefault()
@@ -27,8 +30,13 @@ function Login() {
         // localStorage.setItem('token',data.token)
         if(result.status===200){
             setLoggedin(true) 
-            navigate('/')
+          return  navigate('/')
         }
+        return toast.open(
+            <div className="alert alert-success bg-red-500">
+              <span>something went wrong. Check your username and password again.</span>
+            </div>
+          );
     }
 
   return (
@@ -39,8 +47,8 @@ function Login() {
             <input value={username} onChange={(e)=>setusername(e.target.value)} placeholder='username' className=' input-field w-full' type="text" name="username" id="username" />
 
             <input value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password' className=' input-field w-full' type="password" name="password" id="password" />
-            <input/>
-            <button className='p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full' >login</button>
+            {/* <input/ */}
+            <button disabled={(!username.trim()) || (!password.trim())} className={`p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full ${(!username.trim()) || (!password.trim())? 'bg-gray-400':'bg-red-400'} `} >login</button>
         </form>
     </div>
   )

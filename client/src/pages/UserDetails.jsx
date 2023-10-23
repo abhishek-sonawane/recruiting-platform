@@ -29,7 +29,7 @@ function UserDetails({ userid }) {
     const dat = await postLogoutFromServer();
     console.log(dat);
     setLoggedin(false);
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   const handlePfpChange = (e) => {
