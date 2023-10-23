@@ -35,7 +35,7 @@ export const postJob = async(payload)=>{
             ...globalOptions.headers,
             'Content-Type': 'application/json'
          },
-        body:JSON.stringify({title:payload.title,description:payload.description})
+        body:JSON.stringify({title:payload.title,description:payload.description,experience:payload.experience,job_type:payload.jobType})
     }
     const fetchData = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/post/post-job`,options)
     const results = fetchData.json()
@@ -118,4 +118,26 @@ export const postDeleteJob = async(id)=>{
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/delete/${id}`,options)
     const resultData = res.json()
     return resultData
+}
+
+
+export const changeApplicationStatus =async(id,payload)=>{
+    const options = {
+        ...globalOptions,
+        method:'POST',
+        headers: { 
+            ...globalOptions.headers,
+            'Content-Type': 'application/json' },
+        body:JSON.stringify({
+            job_id: id,
+            data:payload
+        })
+    }
+   try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/apply/edit`,options)
+    const data = await res.json()
+    return data
+   } catch (error) {
+    console.error(error.message)
+   }
 }

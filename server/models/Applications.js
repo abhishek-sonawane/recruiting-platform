@@ -6,6 +6,11 @@ const ApplicationSchema = new mongoose.Schema({
     email:String,
     cvPDF : {
         path:String
+    },
+    status: {
+        type: String,
+        enum: ['applied', 'resume_viewed', 'scheduled_for_interview', 'rejected'],
+        default: 'applied' // You can set a default status if needed
     }
 },   {timestamps:true})
 

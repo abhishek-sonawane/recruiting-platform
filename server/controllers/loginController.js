@@ -8,7 +8,8 @@ const loginUser = async (req, res) => {
     
   try {
     if (user) {
-        if (user.password !== password) {
+
+        if (!await user.matchPassword(password)) {
             console.log(user)
             return res.status(403).send('wrong password')
         }
