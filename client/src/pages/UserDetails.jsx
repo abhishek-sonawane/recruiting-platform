@@ -8,19 +8,24 @@ import {
 } from "../services/APIcalls/user";
 import GlobalContext from "../context/GlobalContext";
 import { useToast } from "../context/ToastContext";
+import { useDispatch, useSelector } from "react-redux";
+import { recieveUsrDetails } from "../slices/userSlice";
 
 
 function UserDetails({ userid }) {
   const navigate = useNavigate();
   const { loggedIn, setLoggedin, userData } = useContext(GlobalContext);
-  const [userDetails, setuserDetails] = useState({});
+  // const [userDetails, setuserDetails] = useState({});
+  const userDetails = useSelector(state=>state.User.data)
+  const dispatch = useDispatch()
   const [img, setImg] = useState("");
   const toast = useToast();
 
   useEffect(() => {
     const fetchUserDtls = async () => {
-      const UserResponse = await getUserDetails(userData.userId);
-      setuserDetails(UserResponse);
+      // const UserResponse = await getUserDetails(userData.userId);
+      // setuserDetails(UserResponse);
+       dispatch(recieveUsrDetails(userData.userId))
     };
     fetchUserDtls();
   }, []);

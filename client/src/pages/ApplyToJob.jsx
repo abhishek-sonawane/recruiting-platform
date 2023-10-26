@@ -4,30 +4,33 @@ import { postApplyJob } from "../services/APIcalls/jobs";
 import { useToast } from "../context/ToastContext";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch,useSelector } from "react-redux";
-// import { postJobApplication } from "../slices/ApplicationSlice";
+import { postJobApplication } from "../slices/ApplicationSlice";
 
 function ApplyToJob({ route }) {
   const { jobID } = useParams();
   const [file, setFile] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  // const submitted = useSelector(state=>state.Application.singleApplication.submitted)
-  // const loading = useSelector(state=>state.Application.singleApplication.loading)
-  // const response = useSelector(state=>state.Application.singleApplication.response.res)
-  const [loading, setLoading] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  const submitted = useSelector(state=>state.Application?.singleApplication.submitted)
+  console.log('submitted state',submitted)
+  const loading = useSelector(state=>state.Application?.singleApplication.loading)
+  const response = useSelector(state=>state.Application?.singleApplication.response.res)
+  // const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const res = await postApplyJob(jobID, {
-      file: file,
-      name: name,
-      email: email,
-    }); 
+    // setLoading(true);
+    // const res = await postApplyJob(jobID, {
+    //   file: file,
+    //   name: name,
+    //   email: email,
+    // }); 
+
+    dispatch(postJobApplication(jobID,{file,name,email}))
       
     // const wait = (time)=>{
     // await new Promise((res)=> {
@@ -36,19 +39,19 @@ function ApplyToJob({ route }) {
     //   }, 2000)
     // })
     console.log('response',response)
-    if (response.res.status == 200) {
+    if (response.status == 200) {
       // navigate('/')
-      setSubmitted(true);
-      setLoading(false);
+      // setSubmitted(true);
+      // setLoading(false);
       return toast.open(
         <div className="alert alert-success">
           <span>Applied to job Successfully.</span>
         </div>
       );
     }
-    setLoading(false);
+    // setLoading(false);
     return toast.open(
-      <div className="alert alert-success bg-red-500">
+      <div className="alert alert-success bg-red-500  absolute  md:relative">
         <span>something went wrong posting the application.</span>
       </div>
     );

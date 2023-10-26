@@ -5,35 +5,30 @@ import getCookie from '../utils/FindCookie'
 import GlobalContext from '../context/GlobalContext'
 import SearchBar from './SearchBar'
 import SideBar from './SideBar'
-import { setInitialJobs } from '../slices/JobsSlice'
+// import { setInitialJobs } from '../slices/JobsSlice'
+import { getInitialJobs } from '../slices/JobsSlice'
 import {useDispatch,useSelector} from 'react-redux'
 
 
 function Feed() {
 
+  const dispatch = useDispatch()
   const [query,setQuery] = useState('')
+  const data = useSelector((state)=>state.jobs.listOfJobs)
 
   const findQuery =(data)=>{
     setQuery(data)
   }
-
-  const dispatch = useDispatch()
-  const data = useSelector((state)=>state.setJobs)
   const filteredData = data.filter((item)=>item.title.toLowerCase().includes(query.toLowerCase().trim()) || item.description.toLowerCase().includes(query.toLowerCase().trim()))
    
+
+
   // const [data,setData] = useState([])
   const {loggedIn,setLoggedin}  = useContext(GlobalContext)
  
 
   useEffect(()=>{
-   const getData = async()=>{
-     const data = await getJobs()
-     
-     console.log('getdata fn ::',data)
-     dispatch(setInitialJobs(data))
-     document.title = 'Jobs'
-   }
-   getData()
+    dispatch(getInitialJobs())
   },[])
 
   return (
