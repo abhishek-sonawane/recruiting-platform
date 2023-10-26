@@ -24,10 +24,12 @@ const postJob = async(req,res)=>{
 //    console.log(schema)
 //    if(schema.success){
     try { 
-        const { title , description } = req.body;
+        const { title , description , experience, job_type } = req.body;
         const job = new Jobs({
             title,
-            description
+            description,
+            experience, 
+            job_type
         })
         console.log(job)
         await job.save()
@@ -103,7 +105,21 @@ const getApplications = async(req,res)=>{
     }
 }
 
+const editApplicationStatus = async(req,res)=>{
+    try {
+        const {data,job_id} = req.body
+          const application = await Applications.findByIdAndUpdate(job_id,
+            { $set: { status: data } })
+            if(!application){
+               return res.status(403).send('application not found')
+            }
+       return res.status(200).send('job Updated succesfully')
+    } catch (error) {
+        console.log(error)
+        return res.status(403).send('something went wrong ')
+    }
+}
 
-module.exports = {getSingleJob,postJob,applyToJob,getApplications,updateSingleJob,deleteSingleJob}
+module.exports = {getSingleJob,postJob,applyToJob,getApplications,updateSingleJob,deleteSingleJob,editApplicationStatus}
 
 

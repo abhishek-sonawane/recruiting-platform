@@ -20,7 +20,7 @@ export const loginUser = async(username,password)=>{
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify({username:username,password:password})
         }
-        const result =  await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/login`,options)
+        const result =  await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/auth/login`,options)
         const data = await result.json()
         return {result,data}
     } catch (error) {
