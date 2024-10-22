@@ -18,7 +18,7 @@ function Dashboard() {
     setQuery(data);
   };
 
-  const filteredData = applications.filter(
+  const filteredData = applications?.filter(
     (item) =>
       item.name.toLowerCase().includes(query.toLowerCase().trim()) ||
       item.email.toLowerCase().includes(query.toLowerCase().trim())

@@ -3,31 +3,11 @@ const router = express.Router()
 const Jobs = require('../models/Jobs')
 const auth = require('../middleware/authMiddleware')
 const {getSingleJob,postJob, applyToJob, updateSingleJob, deleteSingleJob, editApplicationStatus} = require('../controllers/jobController')
-const multer = require('multer')
+const upload =  require('../middleware/multerMiddleware')
 const validationMiddleware = require('../middleware/schemaMiddleware')
-const JobSchema = require('./job.schema')
-const ApplicationSchema = require('./application.schema')
+const JobSchema = require('../schema/job.schema')
+const ApplicationSchema = require('../schema/application.schema')
 
-const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'./temp/uploads')
-    },
-    filename : (req,file,cb)=>{
-        // console.log(`this is file from server :${file}`)
-        cb(null,`${Date.now()}-${file.originalname}`)
-    }
-})
-
-const upload  = multer({storage, fileFilter : (req,file,cb)=>{
-    console.log('file filter')
-    console.log(`this is file type ${file.mimetype}`)
-    if(file.mimetype==='application/pdf'){
-        cb(null,true)
-    }else{  
-        cb(null, false);
-        return new Error('bad file input')
-    }
-}})
 
 
 router.get('/:id',getSingleJob )

@@ -15,7 +15,7 @@ const loginUser = async (req, res) => {
         }
 
         console.log(user._id)
-        const token = generateToken(user.id)
+        const token = generateToken(user._id)
 
         // res.cookie('jwt', token, {
         //     httpOnly: false,
