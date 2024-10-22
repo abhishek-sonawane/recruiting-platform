@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.clip{
+  clip-path: polygon(0 0,  0 0, 0 100%, 0% 100%);
+}
