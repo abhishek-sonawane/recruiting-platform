@@ -7,11 +7,6 @@ const getUserDetails = async (req, res) => {
     res.json(user)
 }
 
-const getFileFromServer = () => {
-
-}
-
-
 const postLogoutUser = (req, res) => {
     try {
         res.cookie('jwt', '', {

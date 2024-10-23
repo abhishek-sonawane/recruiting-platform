@@ -1,6 +1,6 @@
 const Jobs = require("../models/Jobs")
-const Applications = require("../models/Applications")
-const nodemailer = require('nodemailer')
+const Applications = require("../models/Applications");
+const { sendEmail } = require("../utils/mail");
 
 
 const getAllJobs = async () => {
@@ -38,7 +38,10 @@ const postApplyToJob = async (payload) => {
     }
 }
 
-const createNewJob = async () => {
+const createNewJob = async ({ title,
+    description,
+    experience,
+    job_type }) => {
     const job = new Jobs({
         title,
         description,

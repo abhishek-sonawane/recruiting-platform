@@ -8,10 +8,10 @@ const job = require('./routes/job.routes.js')
 const Auth = require('./routes/auth.routes.js')
 const user = require('./routes/user.routes.js')
 const path = require('path')
-const auth = require('./middleware/authMiddleware')
 
 
 const corsOptions = {
+    // eslint-disable-next-line no-undef
     origin: [process.env.CLIENT_DOMAIN_URL, 'http://localhost:8000', 'http://192.168.0.140:8000'],
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
@@ -29,6 +29,7 @@ app.use('/', index)
 app.use('/job', job)
 app.use('/auth', Auth)
 app.use('/user', user)
+// eslint-disable-next-line no-undef
 app.use('/file', express.static(path.join(__dirname, 'temp/uploads')))
 
 

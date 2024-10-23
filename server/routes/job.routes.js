@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const Jobs = require('../models/Jobs')
 const auth = require('../middleware/authMiddleware')
 const { getSingleJob, postJob, applyToJob, updateSingleJob, deleteSingleJob, editApplicationStatus } = require('../controllers/jobController')
 const upload = require('../middleware/multerMiddleware')

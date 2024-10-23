@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const Jobs = require('../models/Jobs')
 const { getApplications, getAllJobs } = require('../controllers/jobController')
 const auth = require('../middleware/authMiddleware')
-const path = require('path')
 
 
 router.get('/', getAllJobs)

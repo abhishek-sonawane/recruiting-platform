@@ -89,7 +89,7 @@ const deleteSingleJob = async (req, res) => {
         console.log(job)
         return res.status(200).json('job delete successfully')
     } catch (error) {
-        return res.status(403).json('couldnt delete job')
+        return res.status(403).json('couldnt delete job', error)
     }
 }
 

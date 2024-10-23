@@ -1,6 +1,3 @@
-const z = require('zod')
-
-
 const validationMiddleware = (schema) => (req, res, next) => {
     try {
         schema.parse({
