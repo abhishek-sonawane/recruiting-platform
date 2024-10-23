@@ -1,20 +1,20 @@
 const { findUserById } = require("../services/userService")
 
 
-const getUserDetails  = async(req, res) => {
-    console.log('adhasjdsahdajkd',req.params.id)
-   const user = await findUserById(req.params.id)
+const getUserDetails = async (req, res) => {
+    console.log('adhasjdsahdajkd', req.params.id)
+    const user = await findUserById(req.params.id)
     res.json(user)
 }
 
-const getFileFromServer =()=>{
+const getFileFromServer = () => {
 
 }
 
 
-const postLogoutUser =(req,res)=>{
+const postLogoutUser = (req, res) => {
     try {
-        res.cookie('jwt','',{
+        res.cookie('jwt', '', {
             httpOnly: false,
             // secure: process.env.NODE_ENV !== 'development',
             // sameSite: 'strict',
@@ -27,4 +27,4 @@ const postLogoutUser =(req,res)=>{
     }
 }
 
-module.exports = {getUserDetails,postLogoutUser}
+module.exports = { getUserDetails, postLogoutUser }

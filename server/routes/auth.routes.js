@@ -5,9 +5,9 @@ const validationMiddleware = require('../middleware/schemaMiddleware')
 const LoginSchema = require('../schema/login.schema')
 const { registerUser, loginUser } = require('../controllers/AuthController')
 
- 
-router.post('/login',validationMiddleware(LoginSchema) ,loginUser)
 
-router.post('/register',registerUser) 
+router.post('/login', validationMiddleware(LoginSchema), loginUser)
+
+router.post('/register', registerUser)
 
 module.exports = router
