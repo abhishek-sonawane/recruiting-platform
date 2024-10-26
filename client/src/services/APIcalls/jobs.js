@@ -111,8 +111,12 @@ export const postEditJob = async(id,title,description)=>{
 
 export const postDeleteJob = async(id)=>{
     const options ={
+        ...globalOptions,
         method:'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+            ...globalOptions.headers, 
+            'Content-Type': 'application/json'
+         }
 
     }
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/job/delete/${id}`,options)
