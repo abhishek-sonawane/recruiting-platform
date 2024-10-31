@@ -16,6 +16,7 @@ import About from './pages/About'
 import GlobalContext from './context/GlobalContext'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import WithSidebar from './Components/layout/WithSidebar'
 
 
 function App() {
@@ -40,23 +41,25 @@ function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
-      <SideBar />
       <NavBar />
       <Routes>
-        <Route exact path='/' element={<Feed />} />
-        {/* protected routes */}
-        <Route element={<PrivateRoute />} >
-          <Route path='admin/user/me' element={<UserDetails />} />
-          <Route path='admin/job/post' element={<CreateJob />} />
-          <Route path='admin/recruiter/dashboard' element={<Dashboard />} />
-          <Route />
+        {/* <WithSidebar> */}
+        <Route element={<WithSidebar />} >
+          <Route exact path='/' element={<Feed />} />
+          {/* protected routes */}
+          <Route element={<PrivateRoute />} >
+            <Route path='admin/user/me' element={<UserDetails />} />
+            <Route path='admin/job/post' element={<CreateJob />} />
+            <Route path='admin/recruiter/dashboard' element={<Dashboard />} />
+            <Route />
+          </Route>
+          <Route path='/about' element={<About />} />
+          <Route path='/job/:jobID' element={<SingleJob />} />
+          <Route path='/job/apply/:jobID' element={<ApplyToJob />} />
         </Route>
-        <Route exact path='/admin' element={loggedIn ? <Dashboard /> : <Login />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/job/:jobID' element={<SingleJob />} />
-        <Route path='/job/apply/:jobID' element={<ApplyToJob />} />
         <Route path='/*' element={<ErrorPage />} />
         <Route path='/404' element={<ErrorPage />} />
+        <Route exact path='/admin' element={loggedIn ? <Dashboard /> : <Login />} />
       </Routes>
     </BrowserRouter>
   )

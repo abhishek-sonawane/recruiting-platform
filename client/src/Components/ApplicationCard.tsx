@@ -54,47 +54,65 @@ function ApplicationCard({ item }: ApplicationCardProps) {
 
 
   return (
-    <div className=" border border-slate-300 p-10 w-full max-w-md">
-      <div className="flex flex-row items-center gap-2">
-        <p>Name:</p>
-        <p className="text-lg font-medium">{item.name}</p>
+    <div className="border-slate-300 bg-slate-50 rounded-lg p-10 w-full border flex items-start 
+   flex-col gap-6  md:flex-row
+    "  >
+      <div className=" flex-1 flex flex-col flex-wrap justify-start ">
+        {/* Application details */}
+        <div>
+          <div className="flex flex-row items-center gap-2">
+            <p>Name:</p>
+            <p className="text-lg font-medium">{item.name}</p>
+          </div>
+
+          <div className="flex flex-row items-center gap-2">
+            <p>Email: </p>
+            <p className="text-lg font-medium">{item.email}</p>
+          </div>
+          <div className="flex flex-row items-center gap-2 " >
+            <p className="">
+              Application Date :{" "}
+              {new Date(item.createdAt).toLocaleString().split(",")[0]}
+            </p>
+          </div>
+        </div>
+
+        <br />
+        {/* <p className='flex p-2'>Status: {item.status}</p> */}
+
+        <button className=" text-center px-5 w-fit max-w-xs text-white rounded-lg py-3 flex bg-red-400 font-bold">
+          {pdfLink ? (
+            <a target="_blank" href={pdfLink} rel="noreferrer">
+              View Resume
+            </a>
+          ) : (
+            "Loading..."
+          )}
+        </button>
       </div>
 
-      <div className="flex flex-row items-center gap-2">
-        <p>Email: </p>
-        <p className="text-lg font-medium">{item.email}</p>
+
+      <div className="flex-1 flex flex-col items-start gap-3 " >
+        <label htmlFor="selectStatus" className=" font-semibold" > Application status :</label>
+        <select
+          id="selectStatus"
+          onChange={selectHandler}
+          className=" flex-1 select select-bordered w-full mb-3 max-w-xl"
+        >
+          {applicationStatuses &&
+            applicationStatuses.map((ApplicationItem) => {
+              if (ApplicationItem == item.status) {
+                return (
+                  <option key={ApplicationItem} selected value={ApplicationItem}>
+                    {ApplicationItem}
+                  </option>
+                );
+              }
+              return <option key={ApplicationItem} value={ApplicationItem}>{ApplicationItem}</option>;
+            })}
+        </select>
       </div>
-      <p className="flex ">
-        Application Date :{" "}
-        {new Date(item.createdAt).toLocaleString().split(",")[0]}
-      </p>
-      <br />
-      {/* <p className='flex p-2'>Status: {item.status}</p> */}
-      <select
-        onChange={selectHandler}
-        className="select select-bordered w-full mb-3 max-w-xs"
-      >
-        {applicationStatuses &&
-          applicationStatuses.map((ApplicationItem) => {
-            if (ApplicationItem == item.status) {
-              return (
-                <option key={ApplicationItem} selected value={ApplicationItem}>
-                  {ApplicationItem}
-                </option>
-              );
-            }
-            return <option key={ApplicationItem} value={ApplicationItem}>{ApplicationItem}</option>;
-          })}
-      </select>
-      <button className="px-5 text-white rounded-lg py-3 flex bg-red-400 font-bold">
-        {pdfLink ? (
-          <a target="_blank" href={pdfLink} rel="noreferrer">
-            View Resume
-          </a>
-        ) : (
-          "Loading..."
-        )}
-      </button>
+
     </div>
   );
 }

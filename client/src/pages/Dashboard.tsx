@@ -8,6 +8,7 @@ import ApplicationCard from "../Components/ApplicationCard";
 import ConfirmModal from "../Components/ConfirmModal";
 import JobTableCard from "../Components/JobTableCard";
 import SearchBar from "../Components/SearchBar";
+import JobsTable from "../Components/JobsTable";
 
 function Dashboard() {
   const [applications, setApplications] = useState([]);
@@ -129,9 +130,11 @@ function Dashboard() {
 
       {/* applications section */}
       <p className="text-xl font-semibold p-5 text-left">applications </p>
-      <div className="drop-shadow-xl p-5 bg-slate-50 rounded-lg overflow-auto  w-full max-w-7xl h-full max-h-[25rem]">
-        <div>
-          <div className="flex flex-row items-center mb-3 gap-4 justify-center">
+
+
+      <div className="drop-shadow-xl p-5  rounded-lg w-full max-w-7xl  h-[35rem] bg-white">
+        <div className="flex flex-col h-full" >
+          <div className="flex-1 flex flex-row items-center mb-3 gap-4 justify-center max-h-24">
             <SearchBar query={query} findQuery={findQuery} />
             <select
               onChange={handleSort}
@@ -144,7 +147,7 @@ function Dashboard() {
               <option>Oldest</option>
             </select>
           </div>
-          <div className="flex flex-row flex-wrap gap-6  justify-center">
+          <div className="flex-1 flex flex-row  flex-wrap gap-6 scro overflow-y-scroll scrollbar justify-start items-center px-5" >
             {filteredData && filteredData.length ? (
               filteredData?.map((item) => {
                 return <ApplicationCard item={item} />;
@@ -160,14 +163,17 @@ function Dashboard() {
 
       <div className=" mx-auto m-5 p-5 w-full max-w-8xl drop-shadow-xl   bg-white flex flex-col">
         {/* jobs edit section */}
-        <h1 className="text-2xl p-6">Edit jobs</h1>
-        {jobs && jobs.length > 0 ? (
+        <h1 className="text-2xl p-6">Manage jobs</h1>
+        <JobsTable items={jobs} />
+
+        {/* {jobs && jobs.length > 0 ? (
           jobs.map((item) => {
-            return <JobTableCard item={item} jobs={jobs} setJobs={setJobs} />;
+            return <JobsTable item={item} />
+            // <JobTableCard item={item} jobs={jobs} setJobs={setJobs} />;
           })
         ) : (
           <>no Jobs found</>
-        )}
+        )} */}
 
         {/* <ConfirmModal  /> */}
       </div>
@@ -176,3 +182,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+// TODO - BUG when logged in the /admin route shows the dashboard and that view doesnt have a sidebar . either remove the logic for conditionally rendering the admin panel or add side bar 

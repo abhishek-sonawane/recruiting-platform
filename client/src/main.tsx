@@ -9,13 +9,12 @@ import ToastProvider from './context/ToastContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <ToastProvider>
-   <Provider store={store}>
-
-<ContextProvider>
-<App />
-</ContextProvider>
- </Provider>
-   </ToastProvider>
+    <ToastProvider>
+      <Provider store={store}>
+        <ContextProvider>
+          <App />
+        </ContextProvider>
+      </Provider>
+    </ToastProvider>
   </React.StrictMode>,
 )

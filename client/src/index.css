@@ -2,17 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+.input-field {
+  border: 1px solid rgb(189, 189, 189);
+  border-radius: 8px;
+  padding: 10px 20px;
+}
 
-    .input-field{
-        border: 1px solid rgb(189, 189, 189);
-        border-radius: 8px;
-        padding: 10px 20px;
-    }   
+.search-container {
+}
 
-    .search-container{
-        
-    }
+.active {
+  color: #1f1f1f;
+}
 
-    .active{
-        color: #1f1f1f;
-    }
+@layer components {
+  .scrollbar::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f5f4f1;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e8a1a1;
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f08787;
+  }
+}
