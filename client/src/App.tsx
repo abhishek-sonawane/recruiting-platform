@@ -17,7 +17,7 @@ import GlobalContext from './context/GlobalContext'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import WithSidebar from './Components/layout/WithSidebar'
-
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   const { setLoggedin, loggedIn } = useContext(GlobalContext)
@@ -41,6 +41,7 @@ function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
+      <Toaster />
       <NavBar />
       <Routes>
         {/* <WithSidebar> */}

@@ -19,7 +19,7 @@ function Login() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
-  const toast = useToast();
+  const customToast = useToast();
 
 
   const loginFormSubmit = (e) => {
@@ -28,22 +28,32 @@ function Login() {
   }
 
   const postUser = async () => {
-    const { result, data } = await loginUser(username, password)
-    console.log('result', data)
-    setUserData(data)
-    // localStorage.setItem('token',data.token)
-    if (result.status === 200) {
-      setLoggedin(true)
-      return navigate('/')
+    try {
+      const { result, data } = await loginUser(username, password)
+      console.log('result', data)
+      setUserData(data)
+      // localStorage.setItem('token',data.token)
+      if (result.status === 200) {
+        setLoggedin(true)
+        return navigate('/')
+
+      }
+    } catch (error) {
+      console.log('something went wrong,', error.message)
+      return customToast.open(
+        {
+          type: 'error',
+          text: error.message
+        }
+      );
     }
-    return toast.open(
-      <div className="alert alert-success bg-red-500">
-        <span>something went wrong. Check your username and password again.</span>
-      </div>
-    );
+
   }
 
+
+
   return (
+
     <div className='flex flex-row items-center justify-center p-12 mt-11 w-full h-full '>
       <img className='flex-1 w-full max-w-[500px] h-full' src={pixelImage} alt="" />
       <form className='flex-1 flex flex-col gap-4 bg-white rounded-xl w-full  p-20 max-w-xl' onSubmit={loginFormSubmit} >
@@ -73,7 +83,8 @@ function Login() {
           <p className='
          text-white
            drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-           ' >Log In</p>
+           ' >Log In
+          </p>
         </button>
       </form>
     </div>

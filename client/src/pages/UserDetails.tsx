@@ -9,14 +9,14 @@ import {
 import GlobalContext from "../context/GlobalContext";
 import { useToast } from "../context/ToastContext";
 import { useDispatch, useSelector } from "react-redux";
-import { recieveUsrDetails } from "../slices/userSlice";
+import { recieveUsrDetails } from "../thunks/userThunk";
 
 
 function UserDetails({ userid }) {
   const navigate = useNavigate();
   const { loggedIn, setLoggedin, userData } = useContext(GlobalContext);
   // const [userDetails, setuserDetails] = useState({});
-  const userDetails = useSelector(state=>state.User.data)
+  const userDetails = useSelector(state => state.User.data)
   const dispatch = useDispatch()
   const [img, setImg] = useState("");
   const toast = useToast();
@@ -25,7 +25,7 @@ function UserDetails({ userid }) {
     const fetchUserDtls = async () => {
       // const UserResponse = await getUserDetails(userData.userId);
       // setuserDetails(UserResponse);
-       dispatch(recieveUsrDetails(userData.userId))
+      dispatch(recieveUsrDetails(userData.userId))
     };
     fetchUserDtls();
   }, []);
@@ -50,7 +50,7 @@ function UserDetails({ userid }) {
   };
 
 
-  
+
   return (
     <div className="flex flex-col gap-6 justify-center items-center">
       <div className="avatar relative z-10">

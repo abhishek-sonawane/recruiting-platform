@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 
-function SearchBar({ findQuery, query }) {
-  const queryHandler = (e) => {
+interface searchBarProps {
+  findQuery: (target: string) => void,
+  query: string
+}
+
+function SearchBar({ findQuery, query }: searchBarProps) {
+  const queryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     findQuery(e.target.value)
   }
   return (

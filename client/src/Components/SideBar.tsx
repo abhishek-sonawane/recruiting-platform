@@ -13,9 +13,8 @@ function SideBar() {
 
   return (
     <div
-      className={` z-40 duration-300 h-full bg-white  drop-shadow-2xl border-r-[1px] fixed top-0 left-0 ${
-        isOpen ? " w-40 md:w-44" : "w-10 md:w-20"
-      } `}
+      className={` z-40 duration-300 h-full bg-white  drop-shadow-2xl border-r-[1px] fixed top-0 left-0 ${isOpen ? " w-40 md:w-44" : "w-10 md:w-20"
+        } `}
     >
       <ul className=" text-lg pt-20 pl-2 md:pl-7 text-black flex gap-6 flex-col justify-center content-center  ">
         {/* <li>
@@ -26,14 +25,13 @@ function SideBar() {
               </Link>
             </li> */}
 
-          {/* logo */}
+        {/* logo */}
         <li>
           <NavLink to="/">
             {isOpen ? (
               <p
-                className={` font-mono font-bold text-2xl text-red-400 absolute left-10 top-12 ${
-                  !isOpen && "scale-0"
-                }  `}
+                className={` font-mono font-bold text-2xl text-red-400 absolute left-10 top-12 ${!isOpen && "scale-0"
+                  }  `}
               >
                 job<span className="text-slate-950">spire</span>
               </p>
@@ -47,23 +45,23 @@ function SideBar() {
 
         {/* dashboard */}
 
-        {loggedIn 
+        {loggedIn
           ?
           <li>
-          <NavLink to="admin/recruiter/dashboard">
-            <div className=" text-black flex flex-row gap-2 items-center ">
-              <div>
-                <RxDashboard className=" text-xl md: text-2xl"  />
+            <NavLink to="admin/recruiter/dashboard">
+              <div className=" text-black flex flex-row gap-2 items-center ">
+                <div>
+                  <RxDashboard className=" text-xl md:text-2xl" />
+                </div>
+                <h1
+                  className={` duration-300 font-medium ${!isOpen && "scale-0"}`}
+                >
+                  Dashboard
+                </h1>
               </div>
-              <h1
-                className={` duration-300 font-medium ${!isOpen && "scale-0"}`}
-              >
-                Dashboard
-              </h1>
-            </div>
-          </NavLink>
-        </li>
-        :null        
+            </NavLink>
+          </li>
+          : null
         }
 
         {/* <li>
@@ -77,13 +75,13 @@ function SideBar() {
               </NavLink>
             </li> */}
 
-            {/* jobs */}
+        {/* jobs */}
 
         <li>
           <NavLink to="/">
             <div className="flex flex-row gap-2 items-center">
               <div>
-                <TfiViewListAlt className=" text-xl md: text-2xl" />
+                <TfiViewListAlt className=" text-xl md:text-2xl" />
               </div>
               <h1
                 className={` duration-300 font-medium ${!isOpen && "scale-0"}`}
@@ -100,12 +98,11 @@ function SideBar() {
             <NavLink to="admin/job/post">
               <div className=" text-black flex flex-row gap-2 items-center">
                 <div>
-                  <TiDocument className=" text-xl md: text-2xl" />
+                  <TiDocument className=" text-xl md:text-2xl" />
                 </div>
                 <h1
-                  className={` duration-300 font-medium ${
-                    !isOpen && "scale-0"
-                  }`}
+                  className={` duration-300 font-medium ${!isOpen && "scale-0"
+                    }`}
                 >
                   Post job
                 </h1>
@@ -120,7 +117,7 @@ function SideBar() {
           <NavLink to="/about">
             <div className="flex flex-row gap-2 items-center">
               <div>
-                <AiOutlineInfoCircle className=" text-xl md: text-2xl" />
+                <AiOutlineInfoCircle className=" text-xl md:text-2xl" />
               </div>
               <h1
                 className={` duration-300 font-medium ${!isOpen && "scale-0"}`}
@@ -132,9 +129,8 @@ function SideBar() {
         </li>
 
         <li
-          className={`shadow-2xl absolute top-10 duration-500 right-[-15px] ${
-            isOpen && "rotate-[-180deg]"
-          }`}
+          className={`shadow-2xl absolute top-10 duration-500 right-[-15px] ${isOpen && "rotate-[-180deg]"
+            }`}
           onClick={() => setOpen((prev) => !prev)}
         >
           <HiArrowRightCircle fill="black" size="2em" />

@@ -15,7 +15,7 @@ function Dashboard() {
   const [jobs, setJobs] = useState([]);
   const [query, setQuery] = useState("");
 
-  const findQuery = (data) => {
+  const findQuery = (data: string) => {
     setQuery(data);
   };
 
@@ -29,13 +29,12 @@ function Dashboard() {
     const getData = async () => {
       try {
         const data = await getJobApplications();
-        // console.log('data from error try catch',data)
         setApplications(data);
       } catch (error) {
         console.log("Error while fetching job applications", error);
       }
       const jobData = await getJobs();
-      console.log(jobData);
+      console.log('jobsData:::', jobData);
       setJobs(jobData);
     };
     getData();

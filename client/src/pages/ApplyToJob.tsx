@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { postApplyJob } from "../services/APIcalls/jobs";
 import { useToast } from "../context/ToastContext";
 import { BiArrowBack } from "react-icons/bi";
-import { useDispatch,useSelector } from "react-redux";
-import { postJobApplication } from "../slices/ApplicationSlice";
+import { postJobApplication } from "../thunks/applicationThunk";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHook";
 
-function ApplyToJob({ route }) {
+function ApplyToJob() {
   const { jobID } = useParams();
   const [file, setFile] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   // const [submitted, setSubmitted] = useState(false);
-  const submitted = useSelector(state=>state.Application?.singleApplication.submitted)
-  console.log('submitted state',submitted)
-  const loading = useSelector(state=>state.Application?.singleApplication.loading)
-  const response = useSelector(state=>state.Application?.singleApplication.response.res)
+  const submitted = useAppSelector(state => state.Application?.singleApplication.submitted)
+  console.log('submitted state', submitted)
+  const loading = useAppSelector(state => state.Application?.singleApplication.loading)
+  const response = useAppSelector(state => state.Application?.singleApplication.response.res)
   // const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     // setLoading(true);
     // const res = await postApplyJob(jobID, {
@@ -30,15 +29,15 @@ function ApplyToJob({ route }) {
     //   email: email,
     // }); 
 
-    dispatch(postJobApplication(jobID,{file,name,email}))
-      
+    dispatch(postJobApplication(jobID, { file, name, email }))
+
     // const wait = (time)=>{
     // await new Promise((res)=> {
     //   setTimeout(() => {
     //     res('');
     //   }, 2000)
     // })
-    console.log('response',response)
+    console.log('response', response)
     if (response.status == 200) {
       // navigate('/')
       // setSubmitted(true);
@@ -57,15 +56,15 @@ function ApplyToJob({ route }) {
     );
   };
 
-  const handleFileUpload = (e)=>{
+  const handleFileUpload = (e) => {
     var file = e.target.files[0]
-    if(file.type !== 'application/pdf'){
-      e.target.value=null
+    if (file.type !== 'application/pdf') {
+      e.target.value = null
       return toast.open(
         <div className="alert bg-red-200">
           <span>Invalid File Format. Please select PDF only</span>
         </div>
-      ); 
+      );
     }
     console.log(file)
     setFile(file)
@@ -112,9 +111,8 @@ function ApplyToJob({ route }) {
             <input type="file" onChange={handleFileUpload} />
             <button
               disabled={!name.trim() || !email.trim() || !file}
-              className={` p-3 ${
-                name && email && file ? "bg-red-400 " : " bg-gray-300"
-              } rounded-lg text-white font-semibold text-xl w-full `}
+              className={` p-3 ${name && email && file ? "bg-red-400 " : " bg-gray-300"
+                } rounded-lg text-white font-semibold text-xl w-full `}
             >
               {loading ? (
                 <img
