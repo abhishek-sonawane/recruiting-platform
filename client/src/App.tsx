@@ -18,25 +18,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import WithSidebar from './Components/layout/WithSidebar'
 import { Toaster } from 'react-hot-toast'
+import { useAppSelector } from './hooks/reduxHook'
 
 function App() {
   const { setLoggedin, loggedIn } = useContext(GlobalContext)
+  const userLoggedIn = useAppSelector(state => state?.User?.data)
 
 
   //   const [data,setData] = useState({})
   //   const {loggedIn,setLoggedin}  = useContext(GlobalContext)
 
 
-  //   useEffect(()=>{
-  //    const getData = async()=>{
-  //     const data = await getJobs()
-  //     setData(data)
-  //    }
-  //    getData()
-  //    if(getCookie('jwt')!=''){
-  //     setLoggedin(true)
-  // }
-  //   },[])
+  useEffect(() => {
+    console.log('user logged in', userLoggedIn)
+  }, [])
 
   return (
     <BrowserRouter>
@@ -47,6 +42,9 @@ function App() {
         {/* <WithSidebar> */}
         <Route element={<WithSidebar />} >
           <Route exact path='/' element={<Feed />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/job/:jobID' element={<SingleJob />} />
+          <Route path='/job/apply/:jobID' element={<ApplyToJob />} />
           {/* protected routes */}
           <Route element={<PrivateRoute />} >
             <Route path='admin/user/me' element={<UserDetails />} />
@@ -54,13 +52,10 @@ function App() {
             <Route path='admin/recruiter/dashboard' element={<Dashboard />} />
             <Route />
           </Route>
-          <Route path='/about' element={<About />} />
-          <Route path='/job/:jobID' element={<SingleJob />} />
-          <Route path='/job/apply/:jobID' element={<ApplyToJob />} />
         </Route>
         <Route path='/*' element={<ErrorPage />} />
         <Route path='/404' element={<ErrorPage />} />
-        <Route exact path='/admin' element={loggedIn ? <Dashboard /> : <Login />} />
+        <Route exact path='/admin' element={<Login />} />
       </Routes>
     </BrowserRouter>
   )

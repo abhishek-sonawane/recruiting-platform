@@ -9,19 +9,28 @@ import { useToast } from '../context/ToastContext'
 import pixelImage from '../assets/security.png'
 import { VscEye } from "react-icons/vsc";
 import { VscEyeClosed } from "react-icons/vsc";
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+import { loginUserThunk } from '../redux/thunks/userThunk'
 
 function Login() {
-  useEffect(() => {
-
-  }, [])
-  const { setLoggedin, loggedIn, userData, setUserData } = useContext(GlobalContext)
+  const { setLoggedin, userData, setUserData } = useContext(GlobalContext)
   const [username, setusername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const User = useAppSelector(state => state.User)
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
   const customToast = useToast();
+  const loggedIn = useAppSelector((state) => state.User.isLoggedIn);
+  const loading = useAppSelector(state => state.User.loading)
 
 
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/admin/recruiter/dashboard')
+    }
+  }, [])
   const loginFormSubmit = (e) => {
     e.preventDefault()
     postUser()
@@ -29,27 +38,27 @@ function Login() {
 
   const postUser = async () => {
     try {
-      const { result, data } = await loginUser(username, password)
-      console.log('result', data)
-      setUserData(data)
-      // localStorage.setItem('token',data.token)
-      if (result.status === 200) {
-        setLoggedin(true)
-        return navigate('/')
+      // const { result, data } = await loginUser(username, password)
+      const user = await dispatch(loginUserThunk({ username, password })).unwrap()
+      console.log('result', user)
+      // setUserData(data)
+      // // localStorage.setItem('token',data.token)
+      // if (result.status === 200) {
+      //   setLoggedin(true)
+      return navigate('/admin/recruiter/dashboard')
 
-      }
+      // }
     } catch (error) {
-      console.log('something went wrong,', error.message)
+      console.log('something went wrong,', error)
       return customToast.open(
         {
           type: 'error',
-          text: error.message
+          text: error
         }
       );
     }
 
   }
-
 
 
   return (
@@ -80,11 +89,15 @@ function Login() {
 
         {/* TODO create custom button component */}
         <button disabled={(!username.trim()) || (!password.trim())} className={`p-3 bg-[#d2f091] mt-4 rounded-xl text-black font-bold text-xl w-full ${(!username.trim()) || (!password.trim()) ? 'bg-gray-400 text-white' : ' bg-[#d2f091]'} `} >
-          <p className='
-         text-white
-           drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-           ' >Log In
-          </p>
+          {loading ?
+            <span className="loading loading-dots loading-lg"></span>
+
+            :
+            <p className='
+      text-white
+        drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+        ' >Log In
+            </p>}
         </button>
       </form>
     </div>

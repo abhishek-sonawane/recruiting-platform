@@ -4,7 +4,7 @@ const Users = require('../models/Users')
 const auth = async (req, res, next) => {
     try {
         console.log('request headers,', req?.headers)
-        const token = req?.headers?.authorization.split(' ')[1]
+        const token = req?.headers?.authorization?.split(' ')[1]
         console.log(token)
         // eslint-disable-next-line no-undef
         const decoded = jwt.verify(token, process.env.JWT_SECRET)

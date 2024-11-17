@@ -7,10 +7,11 @@ import { TiDocument } from "react-icons/ti";
 import { TfiViewListAlt } from "react-icons/tfi";
 import GlobalContext from "../../context/GlobalContext";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "../../hooks/reduxHook";
 const WithSidebar = ({ children }) => {
 
     const [isOpen, setOpen] = useState(false);
-    const { loggedIn } = useContext(GlobalContext);
+    const loggedIn = useAppSelector(state => state.User.isLoggedIn)
     return (
         <>
             <div

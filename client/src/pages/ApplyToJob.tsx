@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
 import { BiArrowBack } from "react-icons/bi";
-import { postJobApplication } from "../thunks/applicationThunk";
+import { postJobApplicationThunk } from "../redux/thunks/applicationThunk";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHook";
 
 function ApplyToJob() {
@@ -21,52 +21,63 @@ function ApplyToJob() {
   const navigate = useNavigate();
   const location = useLocation();
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    // setLoading(true);
-    // const res = await postApplyJob(jobID, {
-    //   file: file,
-    //   name: name,
-    //   email: email,
-    // }); 
+    try {
+      e.preventDefault();
+      // setLoading(true);
+      // const res = await postApplyJob(jobID, {
+      //   file: file,
+      //   name: name,
+      //   email: email,
+      // }); 
 
-    dispatch(postJobApplication(jobID, { file, name, email }))
+      const response = await dispatch(postJobApplicationThunk({ jobID, file, name, email })).unwrap()
 
-    // const wait = (time)=>{
-    // await new Promise((res)=> {
-    //   setTimeout(() => {
-    //     res('');
-    //   }, 2000)
-    // })
-    console.log('response', response)
-    if (response.status == 200) {
-      // navigate('/')
-      // setSubmitted(true);
+      // const wait = (time)=>{
+      // await new Promise((res)=> {
+      //   setTimeout(() => {
+      //     res('');
+      //   }, 2000)
+      // })
+      console.log('response', response)
+      if (response.status == 200) {
+        // navigate('/')
+        // setSubmitted(true);
+        // setLoading(false);
+        return toast.open(
+          <div className="alert alert-success">
+            <span>Applied to job Successfully.</span>
+          </div>
+        );
+      }
       // setLoading(false);
-      return toast.open(
-        <div className="alert alert-success">
-          <span>Applied to job Successfully.</span>
-        </div>
+      else {
+        toast.open(
+          {
+            type: 'error',
+            text: response || 'something went wrong posting the application.'
+          }
+        );
+      }
+    } catch (error) {
+      toast.open(
+        {
+          type: 'error',
+          text: error || 'something went wrong posting the application.'
+        }
       );
     }
-    // setLoading(false);
-    return toast.open(
-      <div className="alert alert-success bg-red-500  absolute  md:relative">
-        <span>something went wrong posting the application.</span>
-      </div>
-    );
   };
 
   const handleFileUpload = (e) => {
     var file = e.target.files[0]
     if (file.type !== 'application/pdf') {
       e.target.value = null
-      return toast.open(
-        <div className="alert bg-red-200">
-          <span>Invalid File Format. Please select PDF only</span>
-        </div>
-      );
+      return toast.open({
+        type: 'error',
+        text: 'Invalid File Format. Please select PDF only'
+      });
     }
-    console.log(file)
+    console.log('file==>', file)
     setFile(file)
   }
 

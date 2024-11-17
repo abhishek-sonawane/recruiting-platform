@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { BiArrowBack } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSingleJobs } from '../thunks/jobThunk'
+import { getSingleJobs } from '../redux/thunks/jobThunk'
 import { MdWorkHistory } from 'react-icons/md'
 
 function SingleJob() {

@@ -25,7 +25,7 @@ export default function ToastProvider({ children }) {
             <div className='flex flex-col' >
                 {toast.map(({ id, content }) => {
                     let component;
-                    let className = "alert font-normal bg-white rounded-lg shadow-lg text-black"; // Default styles
+                    let className = "alert font-normal rounded-lg shadow-lg text-black"; // Default styles
 
                     // Check the content type to render appropriately
                     if (typeof content === 'string') {
@@ -45,6 +45,9 @@ export default function ToastProvider({ children }) {
                                 break;
                             case 'warning':
                                 className += " bg-warning text-black";
+                                break;
+                            default:
+                                className += " bg-white text-black";
                                 break;
                         }
                     } else {

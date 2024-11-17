@@ -17,7 +17,9 @@ function Card({ details }: detailProp) {
   const navigate = useNavigate()
   return (
     <div onClick={() => navigate(`/job/${details._id}`)} className='p-7 flex flex-col border text-left rounded-xl font-bold text-slate-900'>
-      <p className=' text-2xl py-7'>{details.title}</p>
+      <p className=' text-2xl py-7'>Dummy text
+        {/* {details.title} */}
+      </p>
       <div>
         <p className='text-gray-500'>{details.createdAt && new Date(details.createdAt).toLocaleString().split(',')[0]}</p>
         {details.experience &&

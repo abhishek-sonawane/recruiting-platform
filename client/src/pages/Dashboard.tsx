@@ -8,7 +8,7 @@ import ApplicationCard from "../Components/ApplicationCard";
 import ConfirmModal from "../Components/ConfirmModal";
 import JobTableCard from "../Components/JobTableCard";
 import SearchBar from "../Components/SearchBar";
-import JobsTable from "../Components/JobsTable";
+import JobsTable from "../Components/JobsTable/JobsTable";
 
 function Dashboard() {
   const [applications, setApplications] = useState([]);
@@ -29,13 +29,12 @@ function Dashboard() {
     const getData = async () => {
       try {
         const data = await getJobApplications();
+        const jobData = await getJobs();
         setApplications(data);
+        setJobs(jobData);
       } catch (error) {
-        console.log("Error while fetching job applications", error);
+        console.log("Error while fetching Data", error);
       }
-      const jobData = await getJobs();
-      console.log('jobsData:::', jobData);
-      setJobs(jobData);
     };
     getData();
   }, []);

@@ -9,7 +9,8 @@ import {
 import GlobalContext from "../context/GlobalContext";
 import { useToast } from "../context/ToastContext";
 import { useDispatch, useSelector } from "react-redux";
-import { recieveUsrDetails } from "../thunks/userThunk";
+import { logoutUserThunk, recieveUsrDetails } from "../redux/thunks/userThunk";
+import { useAppDispatch } from "../hooks/reduxHook";
 
 
 function UserDetails({ userid }) {
@@ -17,7 +18,7 @@ function UserDetails({ userid }) {
   const { loggedIn, setLoggedin, userData } = useContext(GlobalContext);
   // const [userDetails, setuserDetails] = useState({});
   const userDetails = useSelector(state => state.User.data)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [img, setImg] = useState("");
   const toast = useToast();
 
@@ -31,10 +32,10 @@ function UserDetails({ userid }) {
   }, []);
 
   const logoutHander = async () => {
-    const dat = await postLogoutFromServer();
-    console.log(dat);
-    setLoggedin(false);
-    navigate("/auth/login");
+    const dat = await dispatch(logoutUserThunk()).unwrap()
+    if (dat) {
+      navigate("/");
+    }
   };
 
   const handlePfpChange = (e) => {

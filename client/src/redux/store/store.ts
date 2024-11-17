@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { setInitialJobs } from './slices/JobsSlice'
-import JobsSlice from "./slices/JobsSlice";
-import ApplicationSlice from "./slices/ApplicationSlice";
-import userSlice from "./slices/userSlice";
+import JobsSlice from "../slices/JobsSlice";
+import ApplicationSlice from "../slices/ApplicationSlice";
+import userSlice from "../slices/userSlice";
 
 export const store = configureStore({
   reducer: {

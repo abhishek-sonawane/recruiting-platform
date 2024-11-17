@@ -3,29 +3,43 @@ import FetchCall from "../utils/FetchCalls";
 import { useNavigate } from "react-router-dom";
 import { postJob } from "../services/APIcalls/jobs";
 import { useToast } from "../context/ToastContext";
+import { useAppDispatch } from "../hooks/reduxHook";
+import { postJobThunk } from "../redux/thunks/jobThunk";
 
 function CreateJob() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [experience,setExperience] = useState("")
-  const [jobType,setjobType] = useState("Full-time")
+  const [experience, setExperience] = useState("")
+  const [jobType, setjobType] = useState("Full-time")
   const toast = useToast()
 
+  const dispatch = useAppDispatch()
+
   const handleJobSubmit = async (e) => {
-    e.preventDefault();
-    const res = await postJob({ title, description,experience,jobType });
-    console.log(res.fetchData.status);
-    if (res.fetchData.status === 200) {
-    toast.open(
-    <div className="alert alert-success">
-      <span>Job created Successfully.</span>
-    </div>)
-      navigate("/");
+    try {
+      e.preventDefault();
+      const response = await dispatch(postJobThunk({ title, description, experience, jobType })).unwrap()
+      console.log(response, 'response===>')
+      if (response.status == 200) {
+        toast.open({
+          type: 'sucess',
+          text: 'Job created Successfully'
+        })
+        navigate("/");
+      }
+      else throw new Error(response.data.message)
+
+    } catch (error) {
+      console.log('error')
+      toast.open({
+        type: 'error',
+        text: 'something went wrong posting the job'
+      })
     }
   };
 
-  const selectHandler = (e)=>{
+  const selectHandler = (e) => {
     setjobType(e.target.value)
   }
 
@@ -57,7 +71,7 @@ function CreateJob() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-         <input
+        <input
           type="text"
           className=" input-field w-full"
           placeholder="Experience"
@@ -68,11 +82,11 @@ function CreateJob() {
         />
 
         <div className="flex flex-col justify-center items-center gap-2" >
-        <label htmlFor="select">Job type</label>
+          <label htmlFor="select">Job type</label>
           <select id="select" onChange={selectHandler} className="select select-bordered w-full mb-3 max-w-xs">
-                 <option value="Full-time">Full Time</option>
-                 <option value="Part-time">Part Time</option>
-                 <option value="internship">intership</option>
+            <option value="Full-time">Full Time</option>
+            <option value="Part-time">Part Time</option>
+            <option value="internship">intership</option>
           </select>
         </div>
         <button className="p-3 bg-red-400 rounded-lg text-white font-semibold text-xl w-full">
