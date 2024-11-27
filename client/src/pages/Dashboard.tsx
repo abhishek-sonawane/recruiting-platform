@@ -9,6 +9,7 @@ import ConfirmModal from "../Components/ConfirmModal";
 import JobTableCard from "../Components/JobTableCard";
 import SearchBar from "../Components/SearchBar";
 import JobsTable from "../Components/JobsTable/JobsTable";
+import CountUp from "react-countup";
 
 function Dashboard() {
   const [applications, setApplications] = useState([]);
@@ -79,7 +80,9 @@ function Dashboard() {
             </svg>
           </div>
           <div className="stat-title">Open Jobs</div>
-          <div className="stat-value">10</div>
+          <div className="stat-value">
+            <CountUp end={10} duration={2} />
+          </div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
 
@@ -100,7 +103,9 @@ function Dashboard() {
             </svg>
           </div>
           <div className="stat-title">Total Applications</div>
-          <div className="stat-value">4,200</div>
+          <div className="stat-value">
+            <CountUp end={4200} duration={2} />
+          </div>
           <div className="stat-desc">↗︎ 400 (22%)</div>
         </div>
 
@@ -121,7 +126,9 @@ function Dashboard() {
             </svg>
           </div>
           <div className="stat-title">New Registers</div>
-          <div className="stat-value">1,200</div>
+          <div className="stat-value">
+            <CountUp end={1200} duration={2} />
+          </div>
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>
       </div>
