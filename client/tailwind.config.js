@@ -6,8 +6,11 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundColor:{
-        default:'#ffffff',
+      backgroundColor: {
+        default: '#ffffff',
+      },
+      fontFamily: {
+        poppinsBold: 'Poppins-Bold.ttf'
       }
     },
   },

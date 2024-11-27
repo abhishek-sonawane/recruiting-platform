@@ -1,0 +1,40 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
+import GlobalContext from "../context/GlobalContext";
+import { useContext } from "react";
+import { useAppSelector } from "../hooks/reduxHook";
+function NavBar() {
+  // const { loggedIn } = useContext(GlobalContext);
+  const loggedIn = useAppSelector(state => state.User.isLoggedIn)
+
+  if (loggedIn) return (
+    <div>
+      <ul className="flex flex-row items-center  gap-5 md:gap-16 text-slate-500 text-lg font-medium justify-end p-4">
+        {/* <li>
+            <NavLink to='/about'>
+            about
+            </NavLink>
+        </li>
+        <li className='bg-slate-200 p-2 rounded-lg'>
+            <NavLink to='/job/post'>
+            Post Job
+            </NavLink>
+        </li> */}
+        {loggedIn ? (
+          <li>
+            <NavLink to="admin/user/me">
+              <FaUserCircle fontSize="1.5em" />
+            </NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink to="/auth/login">Login</NavLink>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+export default NavBar;
