@@ -13,7 +13,7 @@ import { logoutUserThunk, recieveUsrDetails } from "../redux/thunks/userThunk";
 import { useAppDispatch } from "../hooks/reduxHook";
 
 
-function UserDetails({ userid }) {
+function UserDetails() {
   const navigate = useNavigate();
   const { loggedIn, setLoggedin, userData } = useContext(GlobalContext);
   // const [userDetails, setuserDetails] = useState({});

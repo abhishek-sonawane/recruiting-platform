@@ -40,7 +40,7 @@ function SingleJob() {
         className="px-4 py-2 bg-slate-400 rounded-lg text-lg flex items-center gap-3 top-4 absolute left-27 text-slate-800 font-medium"
       >
         {" "}
-        <BiArrowBack /> go back
+        <BiArrowBack /> Go back
       </button>
       <div className=" flex flex-col gap-4 w-full">
 
@@ -101,9 +101,9 @@ function SingleJob() {
 
             {/* <p className=" "> */}
             <ul>
-              <li>1</li>
-              <li>2</li>
-              <li>23</li>
+              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur perferendis dignissimos cumque aut consequuntur amet ipsum error! Enim impedit quaerat iste ullam praesentium culpa delectus perspiciatis asperiores, cum quasi animi.</li>
+              <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure unde pariatur placeat tempore aut nisi temporibus corrupti cumque debitis? Hic assumenda dolores quam nobis alias libero error dolorum nulla iure!</li>
+              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur doloribus cupiditate ratione tempora! Dolores quidem perspiciatis rem, aliquid labore reiciendis. Quasi suscipit nobis cum earum et tenetur. Perferendis, debitis esse?</li>
             </ul>
             {/* </p> */}
           </div>

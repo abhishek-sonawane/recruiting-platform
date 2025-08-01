@@ -1,34 +1,56 @@
 import api from "../api_instance";
 
-export const globalOptions = {
-  credentials: "include",
-  headers: {
-    Authorization: `bearer ${
-      JSON.parse(localStorage.getItem("userData"))?.token
-    }`,
-  },
-};
+enum JobType {
+  "Full-time",
+  "Part-time",
+  "internship",
+}
+interface postApplyJobParams {
+  id: string;
+  payload: {
+    name: string;
+    email: string;
+    file: File;
+  };
+}
 
+interface editJobParams {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface postJobParams {
+  title: string;
+  description: string;
+  experience: string;
+  jobType: JobType;
+}
+
+interface ChangeApplicationStatusParams {
+  id: string;
+  newStatus: string;
+}
 // get all jobs
 export const getJobs = async () => {
-  const options = { mode: "cors", credentials: "include" };
+  const options = { mode: "cors", withCredentials: true };
   try {
     const response = await api.get("/", options);
     return response.data;
   } catch (error) {
     console.log("error getting all the jobs ::getJobs::", error);
-    throw new Error(error);
+    throw error;
   }
 };
 
 // get single job
-export const getSingleJob = async (id) => {
+export const getSingleJob = async (id: string) => {
   const response = await api.get(`/job/${id}`);
   return response.data;
 };
 
 //apply to job (for everyone)
-export const postApplyJob = async (id, payload) => {
+export const postApplyJob = async ({ id, payload }: postApplyJobParams) => {
   try {
     const data = new FormData();
     data.append("job_id", id);
@@ -47,7 +69,7 @@ export const postApplyJob = async (id, payload) => {
     // return { res, resultData };
   } catch (error) {
     console.log("error message testing", error);
-    throw new Error(error);
+    throw error;
   }
 };
 
@@ -60,12 +82,17 @@ export const getJobApplications = async () => {
     console.log("working");
     return response?.data;
   } catch (error) {
-    throw new Error(error);
+    console.log("error message testing", error);
+    throw error;
   }
 };
 
 // update job
-export const postEditJob = async (id, title, description) => {
+export const postEditJob = async ({
+  id,
+  title,
+  description,
+}: editJobParams) => {
   try {
     const response = await api.post(`/job/update/${id}`, {
       title,
@@ -73,22 +100,26 @@ export const postEditJob = async (id, title, description) => {
     });
     return response;
   } catch (error) {
-    throw new Error(error);
+    console.log("error message testing", error);
+    throw error;
   }
 };
 
 // delete job
-export const postDeleteJob = async (id) => {
+export const postDeleteJob = async (id: string) => {
   try {
     const response = await api.post(`job/delete/${id}`);
     return response;
   } catch (error) {
-    throw new Error(error);
+    console.log("error deleting job:", error);
+    throw error;
   }
 };
 
 // post job (for Admin)
-export const postJob = async (payload) => {
+export const postJob = async (
+  payload: postJobParams
+): Promise<object | Error> => {
   try {
     const response = await api.post("/job/post/post-job", {
       title: payload.title,
@@ -100,12 +131,15 @@ export const postJob = async (payload) => {
     return response;
   } catch (error) {
     console.log("error posting the job, ::postJob:: ", error);
-    throw new Error(error);
+    throw error;
   }
 };
 
 // update application status
-export const changeApplicationStatus = async (id, payload) => {
+export const changeApplicationStatus = async ({
+  id,
+  newStatus,
+}: ChangeApplicationStatusParams) => {
   try {
     const response = await api.post("/job/apply/edit", {
       job_id: id,
@@ -113,7 +147,7 @@ export const changeApplicationStatus = async (id, payload) => {
     });
     return response;
   } catch (error) {
-    console.error(error.message);
-    throw new Error(error);
+    console.error("error changing application status:", error);
+    throw error;
   }
 };

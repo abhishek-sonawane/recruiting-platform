@@ -35,8 +35,8 @@ export const postJobThunk = createAsyncThunk(
       const response = await postJob(payload);
       return response;
     } catch (error) {
-      thunkAPI.rejectWithValue(error);
       console.log(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

@@ -1,6 +1,6 @@
 import api from "../api_instance";
 
-export const loginUser = async (username, password) => {
+export const loginUser = async (username: string, password: string) => {
   try {
     setTimeout(async () => {
       const options = {
@@ -24,7 +24,7 @@ export const loginUser = async (username, password) => {
 export const postLogoutFromServer = async () => {
   try {
     const options = {
-      credentials: "include",
+      withCredentials: true,
     };
 
     const response = await api.post("/user/user/logout", {}, options);
@@ -35,7 +35,7 @@ export const postLogoutFromServer = async () => {
   }
 };
 
-export const getUserDetails = async (id) => {
+export const getUserDetails = async (id: string) => {
   try {
     const options = {
       method: "GET",

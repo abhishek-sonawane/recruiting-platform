@@ -31,10 +31,10 @@ function ApplicationCard({ item }: ApplicationCardProps) {
 
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log("e", e.target.value);
-    const newStatus = e.target.value;
+    const newStatus: string = e.target.value;
     const appStatusMethod = async () => {
       const id = item._id;
-      await changeApplicationStatus(id, newStatus);
+      await changeApplicationStatus({ id, newStatus });
     };
     appStatusMethod();
   };

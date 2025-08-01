@@ -23,7 +23,7 @@ function JobTableCard({ applications, setApplications, jobs, setJobs, item }) {
 
   const saveButtonHandler = async (id) => {
     setEditToggle(false);
-    const res = await postEditJob(id, title, description);
+    const res = await postEditJob({ id, title, description });
     toast.open(
       <div className="alert alert-success">
         <span>Job Edited.</span>

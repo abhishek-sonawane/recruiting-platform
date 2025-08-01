@@ -4,13 +4,14 @@ import { postApplyJob } from "../../services/APIcalls/jobs";
 export const postJobApplicationThunk = createAsyncThunk(
   "jobs/postJobApplication",
   async ({ jobID, file, name, email }, thunkAPI) => {
+    const payload = {
+      name: name,
+      email: email,
+      file: file,
+    };
     try {
       console.log("data passed to from thunk middleware", jobID, name);
-      const res = await postApplyJob(jobID, {
-        file,
-        name,
-        email,
-      });
+      const res = await postApplyJob({ id: jobID, payload });
       //{res.resultData}
       console.log("responsse from thunk middleware", res);
       return res;
